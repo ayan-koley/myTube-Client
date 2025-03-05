@@ -22,7 +22,10 @@ const historySlice = createSlice({
             state.watchVideos.push(action.payload.video);
             state.loading = false;
         },
-        removeVideo: (state, action) => {}
+        removeVideo: (state, action) => {
+            // state.loading = true;
+            // state.watchVideos.filter((video) => )
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -31,6 +34,8 @@ const historySlice = createSlice({
             })
             .addCase(fetchedHistory.fulfilled, (state, action) => {
                 state.loading = false,
+                console.log(action.payload);
+                state.watchVideos = [];
                 state.watchVideos.push(action.payload.videos);
             })
             .addCase(fetchedHistory.rejected, (state, action) => {

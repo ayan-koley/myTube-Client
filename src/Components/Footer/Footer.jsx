@@ -9,7 +9,7 @@ function Footer() {
         {
             name: "History",
             icon: <FaHistory />,
-            to: "/history"
+            to: "/watch-history"
         },{
             name: "Upload Video",
             icon: <FaUpload />,

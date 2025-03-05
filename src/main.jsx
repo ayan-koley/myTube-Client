@@ -6,6 +6,7 @@ import store from './store/store.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 import {Home, SignUpPage, Login, PublishVideoPage, DashBoardPage} from './pages/index.js'
+import HistoryPage from './pages/HistoryPage.jsx';
 
 const routes = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashBoardPage />
+      },
+      {
+        path: "/watch-history",
+        element: <HistoryPage />
       }
     ]
   }

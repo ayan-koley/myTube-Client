@@ -42,7 +42,7 @@ function UserAuth() {
       ]
   return (
     <div className='cursor-pointer' onClick={() => setIsList(!isList)}>
-        <Avatar alt="Remy Sharp" sx={{backgroundColor: 'white'}} src={userData?.avatar?.url} >
+        <Avatar alt="Remy Sharp" src={userData?.avatar?.url} >
             {status ? <img src={userData?.avatar?.url} /> : <CiUser className='text-black font-medium text-2xl' />}
         </Avatar>
         {

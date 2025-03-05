@@ -123,6 +123,8 @@ function Header() {
             />
           </form>
         </div>
+        
+          {/* Hamburger section */}
         {inMobileNav == false ? (<div className="md:hidden cursor-pointer text-white"
         onClick={()=> setInMobileNav(!inMobileNav)}
         >
