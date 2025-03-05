@@ -27,23 +27,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const signUp = async (data) => {
+  const signIn = async (data) => {
     setLoading(true);
     try {
       const formdata = new FormData();
       formdata.append("email", data.email);
       formdata.append("password", data.password);
 
-      const userData = await axios.post("/api/v1/user/login", {
-        email: data.email,
-        password: data.password,
-      }).catch((err) => {
-        console.log(err);
-        setError("User doesn't exist on dbs");
-        setLoading(false);
-      });
+      const loginSession = await axios.post("/api/v1/user/login", data)
+      const userData = loginSession.data?.message?.user;
       if (userData) {
-        console.log(userData);
         dispatch(login(userData));
         setLoading(false);
         navigate("/")
@@ -83,7 +76,7 @@ const Login = () => {
         <Typography variant="h5" gutterBottom>
           Login
         </Typography>
-        <form onSubmit={handleSubmit(signUp)}>
+        <form onSubmit={handleSubmit(signIn)}>
           {<p className="!text-red-500 text-xl font-bold ">{error}</p>}
           <TextField
             fullWidth

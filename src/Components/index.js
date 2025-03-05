@@ -4,7 +4,8 @@ import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 import Header from './Header/Header.jsx';
 import Footer from './Footer/Footer.jsx';
-
+import PublishVideo from './PublishVideo.jsx';
+import Dashboard from './Dashboard.jsx';
 
 export {
     Card,
@@ -12,5 +13,7 @@ export {
     Login,
     SignUp,
     Header,
-    Footer
+    Footer,
+    PublishVideo,
+    Dashboard
 }

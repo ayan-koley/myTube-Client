@@ -9,6 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {logOut} from '../../store/authSlice.js';
+import UserAuth from "./UserAuth.jsx";
 
 function Header() {
 
@@ -18,8 +19,6 @@ function Header() {
   const {loading, error} = useSelector((state) => state.videoSlice);
   const {status} = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
-
-  console.log(status);
 
   const headerItems = [
     {
@@ -42,6 +41,7 @@ function Header() {
     if(query.trim() !== "") 
     dispatch(fetchedVideos(query))
     setQuery("");
+    navigate("/");
   }
 
   const logoutHandler = async() => {
@@ -133,7 +133,7 @@ function Header() {
             <IoMdClose className="text-2xl" />
         </div>)}
         <div className="hidden md:flex gap-5">
-            {headerItems.map((item, index) => (
+            {/* {headerItems.map((item, index) => (
               item.view && 
              ( <Link to={item.to} key={index} className="cursor-pointer font-medium text-white text-[20px] hover:underline ">
               {item.name}
@@ -141,7 +141,8 @@ function Header() {
             ))}
             {status && (<div onClick={logoutHandler} key={10} className="px-3.5 text-white text-xl hover:underline cursor-pointer flex items-center justify-center">
           Logout
-        </div>)}
+        </div>)} */}
+          <UserAuth />
         </div>
       </nav>
       {inMobileNav && <div className={`h-screen inset-0 bg-[#6B7074] flex flex-col`}>
