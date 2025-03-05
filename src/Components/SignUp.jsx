@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { Container, TextField, Button, Typography, Box, styled } from "@mui/material";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import CircularProgress from '@mui/material/CircularProgress';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  styled,
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import {login} from '../store/authSlice.js';
+import { login } from "../store/authSlice.js";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-
 const Signup = () => {
-  const [avatar, setAvatar] = useState('');
-  const [coverImage, setCoverImage] = useState('');
+  const [avatar, setAvatar] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -23,9 +29,8 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const signUp = async(data) => {
-    
-    setLoading(true)
+  const signUp = async (data) => {
+    setLoading(true);
     try {
       const formdata = new FormData();
       formdata.append("username", data.username);
@@ -36,50 +41,61 @@ const Signup = () => {
       formdata.append("coverImage", data.coverImage[0]);
 
       const createAccount = await axios.post("/api/v1/user/register", formdata);
-      if(createAccount) {
+      if (createAccount) {
         const userData = await axios.post("/api/v1/user/login", {
-          "email": data.email,
-          "password": data.password
+          email: data.email,
+          password: data.password,
         });
-          if(userData) {
-            console.log(userData);
-            dispatch(login(userData));
-            setLoading(false);
-            navigate("/");
-            // TODO: After login redirect the user on prev page
-          } else {
-            setError("account getingprocess unsuccessful!");
-          }
+        if (userData) {
+          console.log(userData);
+          dispatch(login(userData));
+          setLoading(false);
+          navigate("/");
+          // TODO: After login redirect the user on prev page
+        } else {
+          setError("account getingprocess unsuccessful!");
+        }
       } else {
-        setError("Account creation failed")
+        setError("Account creation failed");
       }
     } catch (err) {
-      setError(err.message)
-    } 
-  }
+      setError(err.message);
+    }
+  };
 
-
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
+  const VisuallyHiddenInput = styled("input")({
+    clip: "rect(0 0 0 0)",
+    clipPath: "inset(50%)",
     height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
+    overflow: "hidden",
+    position: "absolute",
     bottom: 0,
     left: 0,
-    whiteSpace: 'nowrap',
+    whiteSpace: "nowrap",
     width: 1,
   });
 
   return (
-    <Container maxWidth="xs" sx={{display: "flex", justifyContent: "center", alignItems: "center",}}>
-      <Box sx={{ mt: 3, p: 3, boxShadow: 3, borderRadius: 2, textAlign: "center", backgroundColor: 'white' }}>
+    <Container
+      maxWidth="xs"
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <Box
+        sx={{
+          mt: 3,
+          p: 3,
+          boxShadow: 3,
+          borderRadius: 2,
+          textAlign: "center",
+          backgroundColor: "white",
+        }}
+      >
         <Typography variant="h5" gutterBottom>
           Sign Up
         </Typography>
         <form onSubmit={handleSubmit(signUp)}>
           {<p className="!text-black text-xl">{error}</p>}
-        <TextField
+          <TextField
             fullWidth
             label="Username"
             margin="normal"
@@ -102,7 +118,6 @@ const Signup = () => {
             label="Email"
             type="email"
             margin="normal"
-            
             size="small"
             {...register("email", { required: "Email is required" })}
             // error={!!errors.email}
@@ -114,7 +129,13 @@ const Signup = () => {
             type="password"
             margin="normal"
             size="small"
-            {...register("password", { required: "Password is required", minLength: { value: 2, message: "Password must be at least 2 characters" } })}
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 2,
+                message: "Password must be at least 2 characters",
+              },
+            })}
             // error={!!errors.password}
             // helperText={errors.password?.message}
           />
@@ -129,7 +150,7 @@ const Signup = () => {
             <VisuallyHiddenInput
               type="file"
               onChange={(event) => setAvatar(event)}
-              {...register("avatar", {required: "avatar is required"})}
+              {...register("avatar", { required: "avatar is required" })}
               single
             />
           </Button>
@@ -146,23 +167,27 @@ const Signup = () => {
             <VisuallyHiddenInput
               type="file"
               onChange={(event) => setCoverImage(event.target.files[0].name)}
-              {...register("coverImage", {required: "CoverImage is required"})}
+              {...register("coverImage", {
+                required: "CoverImage is required",
+              })}
               single
             />
           </Button>
-          {coverImage.trim() != '' && <p className="!text-black">{coverImage}</p>}
-          
-                <Button 
-                type="submit"
-               variant="outlined" 
-               color="primary" 
-               fullWidth sx={{ mt: 1 }}
-               endIcon={loading && <CircularProgress size="20px" />}
-               disabled={loading}
-               >
-                Sign Up
-                </Button>
-              
+          {coverImage.trim() != "" && (
+            <p className="!text-black">{coverImage}</p>
+          )}
+
+          <Button
+            type="submit"
+            variant="outlined"
+            color="primary"
+            fullWidth
+            sx={{ mt: 1 }}
+            endIcon={loading && <CircularProgress size="20px" />}
+            disabled={loading}
+          >
+            Sign Up
+          </Button>
         </form>
       </Box>
     </Container>

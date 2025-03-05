@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import Card from "../Components/Card.jsx";
+import {VideoCard} from "../Components";
 import { Skeleton } from "@mui/material";
 function Home() {
   const [videos, setVideos] = useState([]);
@@ -31,7 +31,7 @@ function Home() {
     <div className="flex flex-wrap">
       {videos.map((item) => (
         <div key={item._id} className="px-5 py-5">
-          <Card avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
+          <VideoCard avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
           </div>
       ))}
     </div>

@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 import {Home, SignUpPage, Login, PublishVideoPage, DashBoardPage} from './pages/index.js'
 import HistoryPage from './pages/HistoryPage.jsx';
+import { AuthLayout } from './Components/index.js';
+
 
 const routes = createBrowserRouter([
   {
@@ -15,27 +17,55 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: (
+          <AuthLayout authenticationRequired={false}>
+            <Home />
+          </AuthLayout>
+        )
       },
       {
         path: "/sign-up",
-        element: <SignUpPage />
+        element: (
+          (
+            <AuthLayout authenticationRequired={false}>
+              <SignUpPage />
+            </AuthLayout>
+          )
+        )
       },
       {
         path: "/login",
-        element: <Login />
+        element: (
+          <AuthLayout authenticationRequired={false}>
+            <Login />
+          </AuthLayout>
+        )
       },
       {
         path: "/upload-video",
-        element: <PublishVideoPage />
+        element: (
+          (
+            <AuthLayout authenticationRequired={true}>
+              <PublishVideoPage />
+            </AuthLayout>
+          )
+        )
       },
       {
         path: "/dashboard",
-        element: <DashBoardPage />
+        element: (
+          <AuthLayout authenticationRequired={true}>
+            <DashBoardPage />
+          </AuthLayout>
+        )
       },
       {
         path: "/watch-history",
-        element: <HistoryPage />
+        element: (
+          <AuthLayout authenticationRequired={true}>
+            <HistoryPage />
+          </AuthLayout>
+        )
       }
     ]
   }

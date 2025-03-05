@@ -40,9 +40,9 @@ function DashBoardPage() {
     
     <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Dashboard value={videosCount} icon={<VideoLibrary fontSize="large" />} title={'Total Videos'} color={'bg-blue-500'} />
-        <Dashboard value={viewsCount} icon={<Visibility fontSize="large" />} title={'Total Videos'} color={'bg-blue-500'} />
-        <Dashboard value={subscribersCount} icon={<People fontSize="large" />} title={'Total Videos'} color={'bg-blue-500'} />
-        <Dashboard value={likesCount} icon={<Favorite fontSize="large" />} title={'Total Videos'} color={'bg-blue-500'} />
+        <Dashboard value={viewsCount} icon={<Visibility fontSize="large" />} title={'Total Views'} color={'bg-blue-500'} />
+        <Dashboard value={subscribersCount} icon={<People fontSize="large" />} title={'Total Subscriber'} color={'bg-blue-500'} />
+        <Dashboard value={likesCount} icon={<Favorite fontSize="large" />} title={'Total Likes'} color={'bg-blue-500'} />
     </div>
   )
 }

@@ -8,7 +8,7 @@ function App() {
   const [refresh, setRefresh] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchedVideos("v"));
+    dispatch(fetchedVideos("..."));
   }, [])
   return (
     <>

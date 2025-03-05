@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import Card from './Card';
+import {VideoCard} from './index'
 
 function WatchedVideos() {
     const {status} = useSelector(state => state.authSlice);
@@ -10,7 +10,7 @@ function WatchedVideos() {
         <div className='underline text-3xl px-4 py-4'>HISTORY</div>
        {watchVideos[0].map((item) => (
             <div key={item._id} className="px-5 py-5">
-            <Card avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
+            <VideoCard avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
             </div>
        ))}
     </div>

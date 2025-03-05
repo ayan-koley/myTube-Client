@@ -11,11 +11,9 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../store/authSlice.js";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 

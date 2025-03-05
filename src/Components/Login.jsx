@@ -7,7 +7,6 @@ import {
   Box,
   styled,
 } from "@mui/material";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -34,12 +33,12 @@ const Login = () => {
       formdata.append("email", data.email);
       formdata.append("password", data.password);
 
-      const loginSession = await axios.post("/api/v1/user/login", data)
+      const loginSession = await axios.post("/api/v1/user/login", data);
       const userData = loginSession.data?.message?.user;
       if (userData) {
         dispatch(login(userData));
         setLoading(false);
-        navigate("/")
+        navigate("/");
       }
     } catch (err) {
       setError(err.message);
