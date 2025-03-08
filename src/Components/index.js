@@ -8,6 +8,15 @@ import PublishVideo from './PublishVideo.jsx';
 import Dashboard from './Dashboard.jsx';
 import WatchedVideos from './WatchedVideos.jsx';
 import AuthLayout from './AuthLayout/AuthLayout.jsx';
+import VideoPlayer from './VideoPlayer.js';
+import VideoTitle from './VideoSection/VideoTitle.jsx';
+import VideoDescription from './VideoSection/VideoDescription.jsx';
+import LikeButton from './LikeButton.jsx';
+import SubscribedButton from './SubscribedButton.jsx';
+import VideoInfo from './VideoSection/VideoInfo.jsx';
+import OwnerSection from './VideoSection/OwnerSection.jsx';
+import UserAvatar from './UserAvatar.jsx';
+
 
 export {
     VideoCard,
@@ -19,5 +28,13 @@ export {
     PublishVideo,
     Dashboard,
     WatchedVideos,
-    AuthLayout
+    AuthLayout,
+    VideoPlayer,
+    VideoTitle,
+    VideoDescription,
+    LikeButton,
+    SubscribedButton,
+    VideoInfo,
+    OwnerSection,
+    UserAvatar
 }

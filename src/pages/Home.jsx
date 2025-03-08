@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {VideoCard} from "../Components";
 import { Skeleton } from "@mui/material";
+import LikeButton from "../Components/LikeButton";
+import SubscribedButton from "../Components/SubscribedButton";
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
@@ -15,6 +17,7 @@ function Home() {
 
   return !searchedVideos[query] ? (
   <div className="px-5 py-5 flex flex-wrap justify-around">
+    <SubscribedButton count={1} />
     {skeletonCount.map((item, index) => (
       
       <div className="mx-3" key={index}>
@@ -28,6 +31,7 @@ function Home() {
     ) )}
   </div>
 ) : (
+   
     <div className="flex flex-wrap">
       {videos.map((item) => (
         <div key={item._id} className="px-5 py-5">
