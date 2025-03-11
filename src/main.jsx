@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
-import {Home, SignUpPage, Login, PublishVideoPage, DashBoardPage} from './pages/index.js'
+import {Home, SignUpPage, Login, PublishVideoPage, DashBoardPage, VideoplayerPage} from './pages/index.js'
 import HistoryPage from './pages/HistoryPage.jsx';
 import { AuthLayout } from './Components/index.js';
 
@@ -64,6 +64,14 @@ const routes = createBrowserRouter([
         element: (
           <AuthLayout authenticationRequired={true}>
             <HistoryPage />
+          </AuthLayout>
+        )
+      },
+      {
+        path: "/video/:videoId",
+        element: (
+          <AuthLayout authenticationRequired={false}>
+            <VideoplayerPage />
           </AuthLayout>
         )
       }

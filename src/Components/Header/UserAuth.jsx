@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { CiUser } from "react-icons/ci";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { logOut } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 function UserAuth() {
+  const [authRedirect, setAuthRedirect] = useState("");
   const [isList, setIsList] = useState(false);
   const [error, setError] = useState(null);
   const { status, userData } = useSelector((state) => state.authSlice);
@@ -27,20 +28,17 @@ function UserAuth() {
     }
   };
 
-  const headerItems = [
-    {
-      name: "Login",
-      to: "/login",
-      view: !status,
-    },
-    {
-      name: "Sign Up",
-      to: "/sign-up",
-      view: !status,
-    },
-  ];
+
+
+  useEffect(() => {
+    if(status) setAuthRedirect("/profile");
+    else setAuthRedirect("/login")
+  }, [status, authRedirect])
+  
+
+
   return (
-    <div className="cursor-pointer" onClick={() => setIsList(!isList)}>
+    <Link to={authRedirect} className="hidden sm:block cursor-pointer mr-1" onClick={() => setIsList(!isList)}>
       <Avatar alt="Remy Sharp" src={userData?.avatar?.url}>
         {status ? (
           <img src={userData?.avatar?.url} />
@@ -48,31 +46,7 @@ function UserAuth() {
           <CiUser className="text-black font-medium text-2xl" />
         )}
       </Avatar>
-      {isList && (
-        <div className="absolute right-10 top-20 shadow-2xl bg-gradient-to-br from-blue-100 to-slate-100  border flex p-5 flex-col rounded-xl">
-          {headerItems.map(
-            (item, index) =>
-              item.view && (
-                <Link
-                  to={item.to}
-                  key={index}
-                  className="cursor-pointer font-medium text-black text-[18px]  hover:underline p-3"
-                >
-                  {item.name}
-                </Link>
-              )
-          )}
-          {status && (
-            <div
-              onClick={logoutHandler}
-              className="px-3.5 text-black text-xl hover:underline cursor-pointer flex items-center justify-center font-bold"
-            >
-              Logout
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+    </Link>
   );
 }
 

@@ -24,7 +24,7 @@ function Footer() {
   ];
   return (
     <div
-      className="bg-[#333] fixed bottom-0 w-full flex justify-evenly items-center mt-5"
+      className="bg-[#333] fixed bottom-0 w-full flex justify-evenly items-center mt-5 h-20"
       style={{ borderTop: "3px solid #EDEBEA" }}
     >
       {FooterOptions.map((item) => (

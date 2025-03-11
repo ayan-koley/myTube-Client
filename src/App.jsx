@@ -11,13 +11,13 @@ function App() {
     dispatch(fetchedVideos("..."));
   }, [])
   return (
-    <>
+    <div className='h-screen bg-linear-to-t from-[#030307] to-[#1d1a3a]'>
     <Header />
       <main>
         <Outlet />
       </main>
-    <Footer />
-    </>
+    {/* <Footer /> */}
+    </div>
   )
 }
 

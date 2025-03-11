@@ -43,7 +43,7 @@ function LikeButton({likes, _id}) {
   return loader ? (
     <IconButton loading />
   ) : (
-    <div>
+    <div className='flex items-center'>
         <IconButton onClick={handleLikeState} color={`${isLiked && 'error'}`} >
             {isLiked ? (<FavoriteTwoToneIcon />) : (<FavoriteBorderOutlinedIcon />)}
         </IconButton>

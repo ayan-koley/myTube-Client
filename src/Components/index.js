@@ -8,7 +8,7 @@ import PublishVideo from './PublishVideo.jsx';
 import Dashboard from './Dashboard.jsx';
 import WatchedVideos from './WatchedVideos.jsx';
 import AuthLayout from './AuthLayout/AuthLayout.jsx';
-import VideoPlayer from './VideoPlayer.js';
+import VideoPlayer from './VideoPlayer.jsx';
 import VideoTitle from './VideoSection/VideoTitle.jsx';
 import VideoDescription from './VideoSection/VideoDescription.jsx';
 import LikeButton from './LikeButton.jsx';

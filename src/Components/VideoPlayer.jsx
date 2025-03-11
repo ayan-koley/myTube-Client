@@ -12,22 +12,18 @@ function VideoPlayer({src, options}) {
 
             const initilizeplayer = () => {
                 playerRef.current = videojs(videoElement, {
-                    controls: true,
                     autoplay: false,
+                    controls: true,
                     responsive: true,
-                    height: 640,
-                    width: 360,
-                    sources: [{
-                        src,
-                        type: "video/mp4"
-                    }],
+                    fluid: true,
+                    sources: [{ src: src, type: 'video/mp4' }],
                     ...options
                 })
             }
 
-            setTimeout(() => {
-               initilizeplayer();
-            }, 1000);
+            requestAnimationFrame(() => {
+                initilizeplayer();
+            })
         }
 
         return () => {
@@ -40,7 +36,7 @@ function VideoPlayer({src, options}) {
 
   return (
     <div data-vjs-player>
-        <video ref={videoRef} className='video-js vjs-default-skin' />
+        <video controls ref={videoRef} className='video-js vjs-default-skin' />
     </div>
   )
 }

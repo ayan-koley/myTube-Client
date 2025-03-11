@@ -4,6 +4,7 @@ import {VideoCard} from "../Components";
 import { Skeleton } from "@mui/material";
 import LikeButton from "../Components/LikeButton";
 import SubscribedButton from "../Components/SubscribedButton";
+import { Link } from "react-router-dom";
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
@@ -17,7 +18,6 @@ function Home() {
 
   return !searchedVideos[query] ? (
   <div className="px-5 py-5 flex flex-wrap justify-around">
-    <SubscribedButton count={1} />
     {skeletonCount.map((item, index) => (
       
       <div className="mx-3" key={index}>
@@ -32,11 +32,13 @@ function Home() {
   </div>
 ) : (
    
-    <div className="flex flex-wrap">
+    <div className="grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 mt-8">
       {videos.map((item) => (
-        <div key={item._id} className="px-5 py-5">
-          <VideoCard avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
-          </div>
+        <div key={item._id} className="flex justify-center mt-5">
+          <Link to={`/video/${item._id}`}>
+            <VideoCard avatar={item.owner.avatar.url} thumbnail={item.thumbnail.url} title={item.title} username={item.owner.username} createdAt={item.createdAt} views={item.views} />
+          </Link>  
+        </div>
       ))}
     </div>
   );

@@ -11,6 +11,8 @@ import axios from "axios";
 import { logOut } from "../../store/authSlice.js";
 import UserAuth from "./UserAuth.jsx";
 import Logo from "./Logo.jsx";
+import HeaderOptions from "./HeaderOptions.jsx";
+import MobileHeaderOptions from "./MobileHeaderOptions.jsx";
 
 function Header() {
   const [query, setQuery] = useState("");
@@ -55,13 +57,30 @@ function Header() {
 
   return (
     <>
-      <nav className="h-13 md:h-18 bg-[#333] px-3 md:px-5 flex items-center justify-between gap-5">
-        <div className="light:text-dark dark:text-white text-xl md:text-2xl flex items-center ">
+      <nav className="h-15 md:h-18 bg-[#333] px-3 md:px-5 flex items-center justify-between gap-5">
+        <div className="light:text-dark dark:text-white text-xl md:text-2xl flex items-center">
+
+        {inMobileNav == false ? (
+          <div
+            className="block lg-2:hidden cursor-pointer text-white mr-5 w-10 "
+            onClick={() => setInMobileNav(!inMobileNav)}
+          >
+            <CiMenuFries className="text-2xl" />
+          </div>
+        ) : (
+          <div
+            className="block lg-2:hidden cursor-pointer text-white mr-5 w-10 "
+            onClick={() => setInMobileNav(!inMobileNav)}
+          >
+            <IoMdClose className="text-2xl" />
+          </div>
+        )}
+
           <Link to={"/"} className="font-bold">
             <Logo />
           </Link>
         </div>
-        <div className="md:w-1/2">
+        <div className="sm:w-3/4 md:w-2/4">
           <form className="flex items-center" onSubmit={(e) => searchVideo(e)}>
             <TextField
               id="outlined-basic"
@@ -123,9 +142,16 @@ function Header() {
             />
           </form>
         </div>
+        {/*  */}
+        <HeaderOptions />
+        <div>
+          
+        <UserAuth />
+        </div>
+
 
         {/* Hamburger section */}
-        {inMobileNav == false ? (
+        {/* {inMobileNav == false ? (
           <div
             className="md:hidden cursor-pointer text-white"
             onClick={() => setInMobileNav(!inMobileNav)}
@@ -139,21 +165,9 @@ function Header() {
           >
             <IoMdClose className="text-2xl" />
           </div>
-        )}
-        <div className="hidden md:flex gap-5">
-          {/* {headerItems.map((item, index) => (
-              item.view && 
-             ( <Link to={item.to} key={index} className="cursor-pointer font-medium text-white text-[20px] hover:underline ">
-              {item.name}
-              </Link>)
-            ))}
-            {status && (<div onClick={logoutHandler} key={10} className="px-3.5 text-white text-xl hover:underline cursor-pointer flex items-center justify-center">
-          Logout
-        </div>)} */}
-          <UserAuth />
-        </div>
+        )} */}
       </nav>
-      {inMobileNav && (
+      {/* {inMobileNav && (
         <div className={`h-screen inset-0 bg-[#6B7074] flex flex-col`}>
           {headerItems?.map(
             (item, index) =>
@@ -177,7 +191,8 @@ function Header() {
             </div>
           )}
         </div>
-      )}
+      )} */}
+      {inMobileNav && <MobileHeaderOptions />}
     </>
   );
 }

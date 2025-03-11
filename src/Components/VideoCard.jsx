@@ -25,11 +25,11 @@ function VideoCard({ thumbnail, username, avatar, title, createdAt, views }) {
     <Card
       sx={{
         borderRadius: 2,
-        boxShadow: 3,
+        boxShadow: '2px 5px 15px rgba(255, 255, 255, 0.5);',
         backgroundColor: "#1e1e1e",
         color: "white",
       }}
-      className="w-80 md:w-72 shadow-2xs"
+      className="w-80 md:w-70 sm-2:w-90 lg-2:w-80 hover:scale-102 transition-all duration-1000"
     >
       <CardMedia
         component="img"
