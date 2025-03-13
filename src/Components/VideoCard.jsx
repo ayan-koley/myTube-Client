@@ -39,10 +39,10 @@ function VideoCard({ thumbnail, username, avatar, title, createdAt, views }) {
       />
       <CardContent>
         <Grid container spacing={2} alignItems="center">
-          <Grid item>
+          <Grid >
             <Avatar src={avatar} />
           </Grid>
-          <Grid item>
+          <Grid >
             <Typography variant="subtitle1">{truncatedTitle}</Typography>
             <Typography variant="caption" color="gray">
               {username} • {formattedViews} views • {formattedTime}

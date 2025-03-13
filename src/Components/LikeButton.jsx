@@ -5,6 +5,7 @@ import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import { IconButton  } from '@mui/material';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { GiSelfLove } from "react-icons/gi";
 
 function LikeButton({likes, _id}) {
     // 2 dbs call 1st for provide likes 2nd for remove likes
@@ -43,11 +44,11 @@ function LikeButton({likes, _id}) {
   return loader ? (
     <IconButton loading />
   ) : (
-    <div className='flex items-center'>
-        <IconButton onClick={handleLikeState} color={`${isLiked && 'error'}`} >
-            {isLiked ? (<FavoriteTwoToneIcon />) : (<FavoriteBorderOutlinedIcon />)}
+    <div className='flex items-center text-white w-10'>
+        <IconButton onClick={handleLikeState} >
+            <GiSelfLove className={`${isLiked ? 'text-red-400' : 'text-white'}`} />
         </IconButton>
-        <p className='!text-black mx-3'>{like}</p>
+        {/* <p className='!text-black mx-3'>{like}</p> */}
     </div>
   )
 }

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function SubscribedButton({ _id, count }) {
   // const {subscriber} = useSelector(state => state.subscriberSlice);
   // const state = subscriber.has(_id);
-  let state = true;
+  let state = false;
   const navigate = useNavigate();
 
   const [subscriberCount, setSubsCriberCount] = useState(count);
@@ -37,7 +37,7 @@ function SubscribedButton({ _id, count }) {
         }
       }
     }
-    toggleSubscribers();
+    // toggleSubscribers();
   }, [isSubscribed]);
 
   const toggleSubscribers = async() => {
@@ -51,19 +51,24 @@ function SubscribedButton({ _id, count }) {
     }
   }
   const hadleIsSubscribedState = () => {
+    console.log("click on isSubscribed");
     setIsSubscribed(!isSubscribed);
   }
 
+
   return (
-    <div>
+    <div className="flex items-center">
       {error && <p className="bg-red-500">{error}</p>}
+      <div className="text-white mx-2">
+        {subscriberCount}
+      </div>
       <Button
         variant="contained"
         color={`${isSubscribed ? "success" : "error"}`}
-        sx={{ width: "120px" }}
-        onClick={() => hadleIsSubscribedState}
+        onClick={hadleIsSubscribedState}
+        sx={{width: '126px'}}
       >
-        {isSubscribed ? "Unsubscribe" : "Subscribe"} {subscriberCount}
+        {isSubscribed ? "Unsubscribe" : "Subscribe"}
       </Button>
     </div>
   );

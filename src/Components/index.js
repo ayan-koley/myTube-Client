@@ -14,8 +14,10 @@ import VideoDescription from './VideoSection/VideoDescription.jsx';
 import LikeButton from './LikeButton.jsx';
 import SubscribedButton from './SubscribedButton.jsx';
 import VideoInfo from './VideoSection/VideoInfo.jsx';
-import OwnerSection from './VideoSection/OwnerSection.jsx';
+import OwnerSection from './OwnerSection.jsx';
 import UserAvatar from './UserAvatar.jsx';
+import CommentSection from './Comments/CommentSection.jsx';
+import RecommendVideo from './VideoSection/RecommendVideo.jsx';
 
 
 export {
@@ -36,5 +38,7 @@ export {
     SubscribedButton,
     VideoInfo,
     OwnerSection,
-    UserAvatar
+    UserAvatar,
+    CommentSection,
+    RecommendVideo
 }
