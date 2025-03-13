@@ -2,7 +2,7 @@ import React from 'react'
 
 function VideoTitle({title}) {
   return (
-    <div className='px-4 py-4'>
+    <div className='mx-4 text-white text-xl font-primary'>
         {title}
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 
 function VideoDescription({description}) {
   return (
-    <div className='px-4 py-4'>{description}</div>
+    <div className='mx-4 mt-2 text-white'>{description}</div>
   ) 
 }
 

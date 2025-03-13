@@ -156,8 +156,6 @@ function PublishVideo() {
                 console.log(file.type);
                 if (!file) return "video file is requried";
                 if (file.type !== "video/mp4") return "Invalid file type";
-                if (file.size > 50 * 1024 * 1024)
-                  return "File size must be under 50mb";
                 return true;
               },
             })}
