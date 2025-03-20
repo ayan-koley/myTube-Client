@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { VideoCard } from "../Components";
 import { Skeleton } from "@mui/material";
-import LikeButton from "../Components/LikeButton";
-import SubscribedButton from "../Components/SubscribedButton";
 import { Link } from "react-router-dom";
+import { fetchedVideos } from "../store/videoSlice";
+import useFetchData from '../hooks/useFetchVideo.js' 
+
+
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
   const skeletonCount = [1, 2, 3, 4, 5, 6, 7, 8];
+  const dispatch = useDispatch();
+  const {data: video, loading, error} = useFetchData(fetchedVideos, '..');
+
+ 
 
   useEffect(() => {
-    if (searchedVideos?.[query]) {
-      setVideos(searchedVideos[query]);
+    if (video) {
+      setVideos(video);
     }
-  }, [searchedVideos, query]);
+  }, [video, searchedVideos, query]);
 
-  return !searchedVideos[query] ? (
+  return loading ? (
     <div className="px-5 py-5 flex flex-wrap justify-around">
       {skeletonCount.map((item, index) => (
         <div className="mx-3" key={index}>
