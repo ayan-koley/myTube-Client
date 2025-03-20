@@ -37,12 +37,10 @@ function Header() {
 
   // videoSearching call
   const searchVideo = (e) => {
-    console.log(e);
     e.preventDefault();
-    console.log(query);
     if (query.trim() !== "") dispatch(fetchedVideos(query));
     setQuery("");
-    navigate("/");
+    navigate("/searchedvideo");
   };
 
   const logoutHandler = async () => {
@@ -142,7 +140,6 @@ function Header() {
             />
           </form>
         </div>
-        {/*  */}
         <HeaderOptions />
         <div>
           
@@ -150,48 +147,8 @@ function Header() {
         </div>
 
 
-        {/* Hamburger section */}
-        {/* {inMobileNav == false ? (
-          <div
-            className="md:hidden cursor-pointer text-white"
-            onClick={() => setInMobileNav(!inMobileNav)}
-          >
-            <CiMenuFries className="text-2xl" />
-          </div>
-        ) : (
-          <div
-            className="md:hidden cursor-pointer text-white"
-            onClick={() => setInMobileNav(!inMobileNav)}
-          >
-            <IoMdClose className="text-2xl" />
-          </div>
-        )} */}
+
       </nav>
-      {/* {inMobileNav && (
-        <div className={`h-screen inset-0 bg-[#6B7074] flex flex-col`}>
-          {headerItems?.map(
-            (item, index) =>
-              item.view && (
-                <Link
-                  to={item.to}
-                  key={index}
-                  className="px-3.5 mt-2 text-white text-xl hover:underline cursor-pointer"
-                >
-                  {item.name}
-                </Link>
-              )
-          )}
-          {status && (
-            <div
-              onClick={logoutHandler}
-              key={10}
-              className="px-3.5 mt-2 text-white text-xl hover:underline cursor-pointer"
-            >
-              Logout
-            </div>
-          )}
-        </div>
-      )} */}
       {inMobileNav && <MobileHeaderOptions />}
     </>
   );
