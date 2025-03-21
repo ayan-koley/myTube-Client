@@ -1,14 +1,22 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { Provider } from 'react-redux'
-import store from './store/store.js';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App.jsx'
-import {Home, SignUpPage, Login, PublishVideoPage, DashBoardPage, VideoplayerPage, ProfileSectionPage} from './pages/index.js'
-import HistoryPage from './pages/HistoryPage.jsx';
-import { AuthLayout } from './Components/index.js';
-
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import App from "./App.jsx";
+import {
+  Home,
+  SignUpPage,
+  Login,
+  PublishVideoPage,
+  DashBoardPage,
+  VideoplayerPage,
+  ProfileSectionPage,
+  SearchedVideoPage
+} from "./pages/index.js";
+import HistoryPage from "./pages/HistoryPage.jsx";
+import { AuthLayout } from "./Components/index.js";
 
 const routes = createBrowserRouter([
   {
@@ -21,17 +29,23 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={false}>
             <Home />
           </AuthLayout>
-        )
+        ),
+      },
+      {
+        path: "/searchedvideo",
+        element: (
+          <AuthLayout authenticationRequired={false}>
+            <SearchedVideoPage />
+          </AuthLayout>
+        ),
       },
       {
         path: "/sign-up",
         element: (
-          (
-            <AuthLayout authenticationRequired={false}>
-              <SignUpPage />
-            </AuthLayout>
-          )
-        )
+          <AuthLayout authenticationRequired={false}>
+            <SignUpPage />
+          </AuthLayout>
+        ),
       },
       {
         path: "/login",
@@ -39,17 +53,15 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={false}>
             <Login />
           </AuthLayout>
-        )
+        ),
       },
       {
         path: "/upload-video",
         element: (
-          (
-            <AuthLayout authenticationRequired={true}>
-              <PublishVideoPage />
-            </AuthLayout>
-          )
-        )
+          <AuthLayout authenticationRequired={true}>
+            <PublishVideoPage />
+          </AuthLayout>
+        ),
       },
       {
         path: "/dashboard",
@@ -57,7 +69,7 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={true}>
             <DashBoardPage />
           </AuthLayout>
-        )
+        ),
       },
       {
         path: "/watch-history",
@@ -65,7 +77,7 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={true}>
             <HistoryPage />
           </AuthLayout>
-        )
+        ),
       },
       {
         path: "/video/:videoId",
@@ -73,7 +85,7 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={false}>
             <VideoplayerPage />
           </AuthLayout>
-        )
+        ),
       },
       {
         path: "/profile",
@@ -81,14 +93,14 @@ const routes = createBrowserRouter([
           <AuthLayout authenticationRequired={true}>
             <ProfileSectionPage />
           </AuthLayout>
-        )
-      }
-    ]
-  }
-])
+        ),
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
-    <Provider store={store} >
-      <RouterProvider router={routes} />
-    </Provider>
-)
+createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
+    <RouterProvider router={routes} />
+  </Provider>
+);
