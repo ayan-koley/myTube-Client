@@ -5,22 +5,15 @@ import {
   CardContent,
   Avatar,
 } from "@mui/material";
-
-import { formatDistanceToNow } from "date-fns";
 import Grid from "@mui/material/Grid2";
+import {formatViews, formatTime, truncatTitle} from '../Utils/utilsFunc'
 
 function VideoCard({ thumbnail, username, avatar, title, createdAt, views }) {
-  const formatViews = (num) => {
-    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
-    if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
-    return num;
-  };
-  const formattedTime = formatDistanceToNow(new Date(createdAt), {
-    addSuffix: true,
-  });
+
   const formattedViews = formatViews(views);
-  const truncatedTitle =
-    title.length > 20 ? title.substring(0, 17) + "..." : title;
+  const formattedTime = formatTime(createdAt);
+  const truncatedTitle = truncatTitle(title)
+
   return (
     <Card
       sx={{
