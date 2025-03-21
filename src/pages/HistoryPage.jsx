@@ -4,13 +4,10 @@ import { fetchedHistory } from '../store/historySlice';
 import WatchedVideos from '../Components/WatchedVideos';
 
 function HistoryPage() {
-    const {userData} = useSelector(state => state.authSlice);
     const dispatch = useDispatch();
-    if(userData) {
         useEffect(() => {
             dispatch(fetchedHistory());
         }, [])
-    }
   return (
     <div>
         <WatchedVideos />
