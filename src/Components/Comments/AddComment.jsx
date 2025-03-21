@@ -1,18 +1,20 @@
-import { Button, TextField } from '@mui/material'
+import { Button } from '@mui/material'
 import axios from 'axios';
 import React, { useState } from 'react'
-import SearchIcon from "@mui/icons-material/Search";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {addComment} from '../../store/commentSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 function AddComment({videoId}) {
     const[loading, setLoading] = useState(false);
     const[comment, setComment] = useState("");
     const[error, setError] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {status} = useSelector(state => state.authSlice);
 
     const submitComment = async(e) => {
+        if(!status) navigate("/login");
         e.preventDefault();
         setLoading(true);
         try {
@@ -24,72 +26,30 @@ function AddComment({videoId}) {
             setComment("");
         } catch (err) {
             setError(err.message);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
+
   return (
     <div className='p-5'>
-        <div className='text-red-700'>{error}</div>
-        <form className="flex items-center" onSubmit={(e) => submitComment(e)}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Add new Comment..."
-                      variant="outlined"
-                      size="small"
-                      value={comment}
-                      className="bg-gray-100 rounded-l-xl w-full"
-                      sx={{
-                        "& .MuiOutlinedInput-root": {
-                          borderTopLeftRadius: "10px",
-                          borderEndStartRadius: "10px",
-                          borderTopRightRadius: "0",
-                          borderEndEndRadius: "0", // Rounded corners
-                          borderColor: "gray", // Default border color
-                          transition: "0.3s", // Smooth transition
-        
-                          "&:hover": {
-                            borderColor: "blue", // Change border color on hover
-                          },
-        
-                          "&.Mui-focused": {
-                            borderColor: "black",
-                            color: "black",
-                            borderTopLeftRadius: "10px",
-                            borderEndStartRadius: "10px",
-                            "& .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "white", // Outline color on focus
-                            },
-                          },
-                        },
-        
-                        "& .MuiInputLabel-root": {
-                          color: "gray", // Default label color
-                          transition: "0.3s",
-                        },
-        
-                        "& .MuiInputLabel-root.Mui-focused": {
-                          color: "black", // Change label color on focus
-                        },
-                      }}
-                      onChange={(e) => setComment(e.target.value)}
-                    />
-                    <Button
-                      type="submit"
-                      variant="outlined"
-                      startIcon={
-                        loading ? (
-                          <CircularProgress size="20px" sx={{ color: "black" }} />
-                        ) : (
-                          <SearchIcon className="text-black" />
-                        )
-                      }
-                      className="!bg-white !py-[9px] !rounded-r-xl !border-l-0"
-                      sx={{
-                        borderEndStartRadius: "0",
-                        borderTopLeftRadius: "0",
-                      }}
-                    />
-                  </form>
+        <div className='text-red-700 py-5'>{error}</div>
+        <form className="mb-6" onSubmit={(e) => submitComment(e)}>
+        <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <label htmlFor="comment" className="sr-only">Your comment</label>
+            <textarea id="comment" rows="6"
+                className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                placeholder="Write a comment..." required></textarea>
+        </div>
+        <Button 
+            loading = {loading}
+            variant='contained'
+            disabled = {loading}
+            type="submit"
+            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center !text-gray-400 !bg-gray-800 hover:bg-gray-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+            Post comment
+        </Button>
+    </form>
     </div>
   )
 }
