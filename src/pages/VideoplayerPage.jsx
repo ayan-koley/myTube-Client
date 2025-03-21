@@ -4,25 +4,23 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import About from '../Components/About';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 
 function VideoplayerPage() {
     const {videoId} = useParams();
     const [video, setVideo] = useState({});
-    const {query, searchedVideos} = useSelector(state => state.videoSlice);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const {status} = useSelector(state => state.authSlice);
 
     useEffect(() => {
-      if(Object.keys(video).length === 0 && searchedVideos[query]){
-        const videoData = searchedVideos[query].find((item) => item._id === videoId);
-        if(videoData) {
-          setVideo(videoData);
-        }
-      }
-    }, [video, query, searchedVideos, videoId])
-    useEffect(() => {
-      console.log("hook is callling");
-     updateViews();
-    }, [])
+      fetchingVideo();
+      updateViews();
+      updateHistory();
+    }, [videoId])
+
+    
     const updateViews = async() => {
       try {
         await axios.patch(`/api/v1/video/watched/${videoId}`);
@@ -30,16 +28,44 @@ function VideoplayerPage() {
         console.error(error);
       }
     }
+
+    const fetchingVideo = async() => {
+      setLoading(true);
+      try {
+        const videoData = await axios.get(`/api/v1/video/getvideo/${videoId}`)
+        setVideo(videoData.data.message[0]);
+      } catch (err) {
+        setError(err.message);
+      }
+      setLoading(false);
+    }
+
+    const updateHistory = async() => {
+      if(status) {
+      try {
+        await axios.patch(`/api/v1/user/watch-history/${videoId}`)
+      } catch (err) {
+        setError(err.message);
+      }
+      }
+    }
+
     
-  return Object.keys(video).length !== 0 && (
+    loading &&  (
+      <div>
+        <CircularProgress />
+      </div>
+    )
+
+
+  return Object.keys(video).length !== 0 ? (
     <div className='w-full flex flex-col md:flex-row justify-between'>
-      <div className='w-full md:mx-4 mt-5'>
-        {/* <div><VideoPlayer src={video.videoFile.url} /></div> */}
+      <div className='w-1/2 md:mx-4 mt-5'>
         <div className='p-1'>
           <video src={video.videoFile.url} controls  className='!w-full md:w-1/2' />
         </div>
         <div className='px-4 md:px-0'>
-          <OwnerSection src={video.owner.avatar.url} username={video.owner.username} />
+          <OwnerSection src={video.owner.avatar.url} username={video.owner.username} likesCount={video.likes} />
         </div>
         <div className='px-4 md:px-0'>
           <About title={video.title} description={video.description} />
@@ -47,19 +73,11 @@ function VideoplayerPage() {
         <div className='px-4 md:px-0'>
           <CommentSection videoId={videoId} />
         </div>
-        {/* <div>
-          <VideoTitle title={video.title} />
-        </div>
-        <div>
-          <VideoDescription description={video.description} />
-        </div>
-        <div>
-          <VideoInfo video_id={video._id} />
-        </div> */}
       </div>
-      <div>
-        <RecommendVideo />
-      </div>
+    </div>
+  ) : (
+    <div className='text-white'>
+      {error}
     </div>
   )
 }
