@@ -5,11 +5,7 @@ import { useDispatch } from 'react-redux';
 import { fetchedVideos } from './store/videoSlice';
 
 function App() {
-  const [refresh, setRefresh] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchedVideos("..."));
-  },[])
+
   return (
     <div className='bg-linear-to-t from-[#030307] to-[#1d1a3a]'>
     <Header />
