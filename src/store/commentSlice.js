@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchedComment = createAsyncThunk("/comment/fetchedComment",async(_id) => {
-    const response = await axios.get(`/api/v1/comment/${_id}`);
+export const fetchedComment = createAsyncThunk("/comment/fetchedComment",async(id) => {
+    const response = await axios.get(`/api/v1/comment/${id}`);
+    console.log(response);
     return {comments: response.data.message[0].data};
 })
 
@@ -33,6 +34,7 @@ const commentSlice = createSlice({
             })
             .addCase(fetchedComment.rejected, (state, action) => {
                 state.error = action.error;
+                state.loading = false;
             })
     }
 })
