@@ -1,10 +1,10 @@
 import React from 'react'
 import { Avatar } from '@mui/material'
 
-function UserAvatar({src}) {
+function UserAvatar({src, className=""}) {
   return (
     <div>
-        <Avatar alt="owner" src={src} />
+        <Avatar alt="owner" src={src} className={`${className}`} />
     </div>
   )
 }
