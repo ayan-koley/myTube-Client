@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 function SubscribedButton({ _id, count }) {
   // const {subscriber} = useSelector(state => state.subscriberSlice);
   // const state = subscriber.has(_id);
+  // TODO: same as like button
   let state = false;
   const navigate = useNavigate();
 
