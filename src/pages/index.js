@@ -6,6 +6,7 @@ import DashBoardPage from './DashBoardPage.jsx';
 import HistoryPage from './HistoryPage.jsx';
 import VideoplayerPage from './VideoplayerPage.jsx';
 import ProfileSectionPage from './ProfileSectionPage.jsx';
+import SearchedVideoPage from "./SearchedVideoPage.jsx";
 
 export {
     Home,
@@ -15,5 +16,6 @@ export {
     DashBoardPage,
     HistoryPage,
     VideoplayerPage,
-    ProfileSectionPage
+    ProfileSectionPage,
+    SearchedVideoPage
 }
