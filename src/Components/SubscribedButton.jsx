@@ -5,57 +5,44 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function SubscribedButton({ _id, count }) {
-  // const {subscriber} = useSelector(state => state.subscriberSlice);
-  // const state = subscriber.has(_id);
-  // TODO: same as like button
-  let state = false;
+  const {status} = useSelector(state => state.authSlice);
   const navigate = useNavigate();
 
   const [subscriberCount, setSubsCriberCount] = useState(count);
-  const [isSubscribed, setIsSubscribed] = useState(state);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(isSubscribed);
-    if (state) {
-      if (!isSubscribed) {
-        setSubsCriberCount(subscriberCount-1);
-      } else {
-        if (subscriberCount < count) {
-          setSubsCriberCount(subscriberCount+1);
-        } else {
-          setSubsCriberCount(count);
-        }
-      }
-    } else {
-      if (isSubscribed) {
-        setSubsCriberCount(subscriberCount+1);
-      } else {
-        if (subscriberCount > count) {
-          setSubsCriberCount(subscriberCount-1);
-        } else {
-          setSubsCriberCount(count);
-        }
+    const fetchSubscribedStatus = async() => {
+      try {
+        const response = await axios.get(`/api/v1/subscription/status/${_id}`)
+        setIsSubscribed(response.data.data.isSubscribed);
+      } catch (err) {
+        setError(err.message);
       }
     }
-    // toggleSubscribers();
-  }, [isSubscribed]);
+  },[])
 
   const toggleSubscribers = async() => {
+    if(!status) navigate("/login");
+    setLoading(true);
+    setError(null);
     try {
       const response = await axios.post(`/api/v1/subscription/${_id}`);
-      if(!response) {
-        setError("Unauthorized or channel finding failed");
+      if(response.data.message.includes('create')) {
+        setSubsCriberCount(prev => prev + 1);
+        setIsSubscribed(true);
+      } else {
+        setSubsCriberCount(prev => prev - 1);
+        setIsSubscribed(false);
       }
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   }
-  const hadleIsSubscribedState = () => {
-    console.log("click on isSubscribed");
-    setIsSubscribed(!isSubscribed);
-  }
-
 
   return (
     <div className="flex items-center">
@@ -64,9 +51,11 @@ function SubscribedButton({ _id, count }) {
         {subscriberCount}
       </div>
       <Button
+        loading={loading}
+        disabled={loading}
         variant="contained"
         color={`${isSubscribed ? "success" : "error"}`}
-        onClick={hadleIsSubscribedState}
+        onClick={toggleSubscribers}
         sx={{width: '126px'}}
       >
         {isSubscribed ? "Unsubscribe" : "Subscribe"}

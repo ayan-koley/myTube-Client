@@ -4,6 +4,7 @@ import { Edit, PhotoCamera } from "@mui/icons-material";
 import { RxUpdate } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileSection() {
   
@@ -18,6 +19,8 @@ export default function ProfileSection() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [nameLoader, setNameLoader] = useState(false);
+  const [loding, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleImageChange = useCallback((event, setImage) => {
     const file = event.target.files[0];
@@ -43,14 +46,18 @@ export default function ProfileSection() {
     }
   } 
 
-  // const changeName = async() => {
-  //   setNameLoader(true);
-  //   try {
-  //     const updated = await axios.patch("/api/v1/user/change-coverimage")
-  //   } catch (error) {
-      
-  //   }
-  // }
+  const logoutUser = async() => {
+    if(!status) return navigate("/")
+    setLoading(true);
+    try {
+      await axios.post("/api/v1/user/logout");
+      navigate("/")
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
   
 
 
@@ -97,12 +104,12 @@ export default function ProfileSection() {
             onChange={(e) => setName(e.target.value)}
             fullWidth
           />
-          <IconButton
+          {/* <IconButton
             className="!ml-2"
             onClick={() => alert(`${name} updated`)}
           >
             <RxUpdate />
-          </IconButton>
+          </IconButton> */}
         </div>
         <div className="w-full flex mt-2">
           
@@ -132,13 +139,21 @@ export default function ProfileSection() {
               onChange={(e) => setter(e.target.value)}
               fullWidth
             />
-            <IconButton
+            {/* <IconButton
               className="!ml-2"
               onClick={() => alert(`${password} updated`)}
             >
               <RxUpdate />
-            </IconButton>
+            </IconButton> */}
           </div>
+        </div>
+        <div className="my-2 flex justify-center">
+          <Button
+          variant="contained"
+          onClick={logoutUser}
+          >
+            LogOut User
+          </Button>
         </div>
       </div>
   ) : (

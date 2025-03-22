@@ -60,12 +60,12 @@ function VideoplayerPage() {
 
   return Object.keys(video).length !== 0 ? (
     <div className='w-full flex flex-col md:flex-row justify-between'>
-      <div className='w-1/2 md:mx-4 mt-5'>
+      <div className='w-full md:w-1/2 md:mx-4 mt-5'>
         <div className='p-1'>
           <video src={video.videoFile.url} controls  className='!w-full md:w-1/2' />
         </div>
         <div className='px-4 md:px-0'>
-          <OwnerSection src={video.owner.avatar.url} username={video.owner.username} likesCount={video.likes} />
+          <OwnerSection src={video.owner.avatar.url} _id={video.owner._id} username={video.owner.username} likesCount={video.likes} />
         </div>
         <div className='px-4 md:px-0'>
           <About title={video.title} description={video.description} />
