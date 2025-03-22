@@ -19,7 +19,7 @@ function CommentSection({videoId}) {
     <div className='!w-full md:w-1/2 rounded md:mx-3 my-3 text-gray-900 pb-5'>
         {error && <p className='text-red-400 m-2'>{error.message}</p>}
         {loading && <CircularProgress />}
-        <div className='text-2xl pl-5 font-bold'>
+        <div className='text-2xl pl-5 font-bold text-gray-300'>
             Comments
         </div>
         <div>
