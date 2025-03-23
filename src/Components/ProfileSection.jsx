@@ -62,7 +62,7 @@ export default function ProfileSection() {
 
 
   return status ? (
-    <div className="max-w-4xl mx-auto p-4 shadow-lg rounded-lg bg-white">
+    <div className="max-w-4xl mx-auto px-4 pb-1 shadow-lg rounded-lg bg-white">
       {error && <div className="text-red-300 p-3">{error}</div>}
       {/* Cover Image */}
       <div className="relative h-48 bg-gray-200 rounded-lg overflow-hidden">

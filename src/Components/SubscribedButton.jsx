@@ -22,6 +22,7 @@ function SubscribedButton({ _id, count }) {
         setError(err.message);
       }
     }
+    if(status) fetchSubscribedStatus();
   },[])
 
   const toggleSubscribers = async() => {
@@ -47,9 +48,9 @@ function SubscribedButton({ _id, count }) {
   return (
     <div className="flex items-center">
       {error && <p className="bg-red-500">{error}</p>}
-      <div className="text-white mx-2">
+      {/* <div className="text-white mx-2">
         {subscriberCount}
-      </div>
+      </div> */}
       <Button
         loading={loading}
         disabled={loading}

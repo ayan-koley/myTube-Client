@@ -15,5 +15,8 @@ p, h1, h2, h3 {
     --breakpoint-md: 58.125rem;
     --breakpoint-lg-2: 81.25rem;
     --font-primary: Jaldi, sans-serif;
-    --color-about: #141414
+    --color-about: #141414;
+}
+.bg-primary {
+    background: linear-gradient(#030307, #1d1a3a);
 }

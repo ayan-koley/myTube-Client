@@ -21,7 +21,7 @@ function PublishVideo() {
   // const [thumbnail, setThumbnail] = useState({});
   // const [videoFile, setVideoFile] = useState("");
   const [error, setError] = useState(null);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
   const [loading, setLoading] = useState(false);
   const { userData } = useSelector((state) => state.authSlice);
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ function PublishVideo() {
   const publishNewVideo = async (data) => {
     setLoading(true);
     try {
-      console.log("data is ", data);
 
       const formdata = new FormData();
       formdata.append("title", data.title);
@@ -66,7 +65,6 @@ function PublishVideo() {
     width: 1,
   });
 
-  console.log(error);
   return (
     <Container
       maxWidth="xs"
@@ -135,6 +133,7 @@ function PublishVideo() {
           p-2 font-medium"
             id="thumbnail_input"
             type="file"
+            accept="image/*"
             {...register("thumbnail")}
           />
 
@@ -149,17 +148,20 @@ function PublishVideo() {
           p-2 font-medium"
             id="video_input"
             type="file"
+            accept="video/*"
             {...register("videoFile", {
               required: "Video file is required",
               validate: (FileList) => {
                 const file = FileList[0];
-                console.log(file.type);
+                console.log(file);
                 if (!file) return "video file is requried";
-                if (file.type !== "video/mp4") return "Invalid file type";
+                if (!file.type.startsWith("video/")) return "Invalid file type";
+                if(file.size > 60 * 1024 * 1024) return "file size must be under 60mb";
                 return true;
               },
             })}
           />
+          {errors.videoFile && <p className="!text-red-500">{errors.videoFile.message}</p>}
 
           <Button
             type="submit"
