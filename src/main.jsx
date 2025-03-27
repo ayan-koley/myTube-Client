@@ -13,7 +13,8 @@ import {
   DashBoardPage,
   VideoplayerPage,
   ProfileSectionPage,
-  SearchedVideoPage
+  SearchedVideoPage,
+  ChannelProfilePage
 } from "./pages/index.js";
 import HistoryPage from "./pages/HistoryPage.jsx";
 import { AuthLayout } from "./Components/index.js";
@@ -95,6 +96,14 @@ const routes = createBrowserRouter([
           </AuthLayout>
         ),
       },
+      {
+        path: "/profile/:username",
+        element: (
+          <AuthLayout authenticationRequired={false}>
+            <ChannelProfilePage />
+          </AuthLayout>
+        )
+      }
     ],
   },
 ]);

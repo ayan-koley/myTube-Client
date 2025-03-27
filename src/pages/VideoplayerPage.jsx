@@ -74,6 +74,10 @@ function VideoplayerPage() {
           <CommentSection videoId={videoId} />
         </div>
       </div>
+      <div>
+        {/* <ChannelAllVideos channelId={video.owner._id} /> */}
+        <RecommendVideo videoId={videoId} />
+      </div>
     </div>
   ) : (
     <div className='text-white'>

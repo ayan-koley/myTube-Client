@@ -2,9 +2,10 @@ import { useState, useCallback } from "react";
 import { Avatar, IconButton, TextField, Button } from "@mui/material";
 import { Edit, PhotoCamera } from "@mui/icons-material";
 import { RxUpdate } from "react-icons/rx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { login } from "../store/authSlice";
 
 export default function ProfileSection() {
   
@@ -19,8 +20,9 @@ export default function ProfileSection() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [nameLoader, setNameLoader] = useState(false);
-  const [loding, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleImageChange = useCallback((event, setImage) => {
     const file = event.target.files[0];
@@ -52,6 +54,21 @@ export default function ProfileSection() {
     try {
       await axios.post("/api/v1/user/logout");
       navigate("/")
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  
+  const updateFullname = async() => {
+    setLoading(true);
+    setError(null);
+    try {
+        const response = await axios.patch("/api/v1/user/new-name", {
+          fullname: name
+        })
+        dispatch(login(response.data.data));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -104,12 +121,14 @@ export default function ProfileSection() {
             onChange={(e) => setName(e.target.value)}
             fullWidth
           />
-          {/* <IconButton
+          <IconButton
             className="!ml-2"
-            onClick={() => alert(`${name} updated`)}
+            onClick={updateFullname}
+            loading={loading}
+            disabled = {loading}
           >
             <RxUpdate />
-          </IconButton> */}
+          </IconButton>
         </div>
         <div className="w-full flex mt-2">
           

@@ -7,6 +7,7 @@ import HistoryPage from './HistoryPage.jsx';
 import VideoplayerPage from './VideoplayerPage.jsx';
 import ProfileSectionPage from './ProfileSectionPage.jsx';
 import SearchedVideoPage from "./SearchedVideoPage.jsx";
+import ChannelProfilePage from './ChannelProfilePage.jsx';
 
 export {
     Home,
@@ -17,5 +18,6 @@ export {
     HistoryPage,
     VideoplayerPage,
     ProfileSectionPage,
-    SearchedVideoPage
+    SearchedVideoPage,
+    ChannelProfilePage
 }

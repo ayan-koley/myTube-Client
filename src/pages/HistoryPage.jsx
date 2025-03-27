@@ -9,7 +9,7 @@ function HistoryPage() {
             dispatch(fetchedHistory());
         }, [])
   return (
-    <div>
+    <div className='bg-primary'>
         <WatchedVideos />
     </div>
   )

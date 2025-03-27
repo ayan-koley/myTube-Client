@@ -1,10 +1,13 @@
 import React from 'react'
 import { Avatar } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-function UserAvatar({src, className=""}) {
+function UserAvatar({username, src, className="", width, height}) {
   return (
     <div>
-        <Avatar alt="owner" src={src} className={`${className}`} />
+        <Link to={`/profile/${username}`}>
+          <Avatar alt="owner" src={src}  className={`!${className} !${width} !${height}`} />
+        </Link>
     </div>
   )
 }

@@ -19,6 +19,7 @@ import UserAvatar from './UserAvatar.jsx';
 import CommentSection from './Comments/CommentSection.jsx';
 import RecommendVideo from './VideoSection/RecommendVideo.jsx';
 import SearchedVideo from './SearchedVideo/SearchedVideo.jsx';
+import Channel from './Channel/Channel.jsx';
 
 
 export {
@@ -42,5 +43,6 @@ export {
     UserAvatar,
     CommentSection,
     RecommendVideo,
-    SearchedVideo
+    SearchedVideo,
+    Channel
 }

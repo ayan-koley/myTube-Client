@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function SubscribedButton({ _id, count }) {
+function SubscribedButton({ _id, count=0 }) {
   const {status} = useSelector(state => state.authSlice);
   const navigate = useNavigate();
 

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { fetchedVideos } from "../store/videoSlice";
 import useFetchData from '../hooks/useFetchVideo.js' 
 
-
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
@@ -46,7 +45,7 @@ function Home() {
       ))}
     </div>
   ) : (
-    <div className=" bg-primary  grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 mt-8">
+    <div className=" bg-primary  grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 py-8">
       {videos.map((item) => (
         <div key={item._id} className="flex justify-center mt-5">
           <Link to={`/video/${item._id}`}>
