@@ -10,9 +10,9 @@ function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
   const skeletonCount = [1, 2, 3, 4, 5, 6, 7, 8];
-  const dispatch = useDispatch();
   const {data: video, loading, error} = useFetchData(fetchedVideos, '..');
 
+  
  
 
   useEffect(() => {

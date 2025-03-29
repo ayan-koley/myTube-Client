@@ -1,11 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Avatar, IconButton, TextField, Button } from "@mui/material";
 import { Edit, PhotoCamera } from "@mui/icons-material";
 import { RxUpdate } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { login } from "../store/authSlice";
+import { login, logOut } from "../store/authSlice";
 import toast from "react-hot-toast";
 
 export default function ProfileSection() {
@@ -22,7 +22,6 @@ export default function ProfileSection() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
 
   const handleImageChange = useCallback((event, setImage) => {
     const file = event.target.files[0];
@@ -48,12 +47,15 @@ export default function ProfileSection() {
   } 
 
   const logoutUser = async() => {
-    if(!status) return navigate("/", {state: {from: location}});
+    if(!status) return navigate("/");
     setLoading(true);
     try {
       await axios.post("/api/v1/user/logout");
       toast.success("Successfully Logout");
-      navigate("/")
+      dispatch(logOut());
+      setTimeout(() => {
+        navigate("/");
+      }, 50)
     } catch (err) {
       setError(err.message);
       toast.error(err.message);
@@ -61,7 +63,7 @@ export default function ProfileSection() {
       setLoading(false);
     }
   }
-  
+ 
   const updateFullname = async() => {
     setLoading(true);
     setError(null);

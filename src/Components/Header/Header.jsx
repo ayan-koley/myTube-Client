@@ -140,10 +140,9 @@ function Header() {
             />
           </form>
         </div>
-        <HeaderOptions />
+          <HeaderOptions />
         <div>
-          
-        <UserAuth />
+          <UserAuth />
         </div>
 
 

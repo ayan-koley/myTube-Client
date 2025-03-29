@@ -39,8 +39,9 @@ const Login = () => {
       if (userData) {
         dispatch(login(userData));
         setLoading(false);
-        console.log(location);
-        navigate(location.state.from.pathname);
+        const redirectPath = location.state?.from?.pathname || "/";
+        console.log(redirectPath);
+        navigate(redirectPath);
       }
     } catch (err) {
       setError(err.message);

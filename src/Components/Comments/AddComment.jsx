@@ -3,7 +3,8 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {addComment} from '../../store/commentSlice.js';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function AddComment({videoId}) {
     const[loading, setLoading] = useState(false);
@@ -12,9 +13,10 @@ function AddComment({videoId}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {status} = useSelector(state => state.authSlice);
+    const location = useLocation();
 
     const submitComment = async(e) => {
-        if(!status) return navigate("/login");
+        if(!status) return navigate("/login", {state: {from : location}});
         e.preventDefault();
         setLoading(true);
         try {
@@ -22,8 +24,10 @@ function AddComment({videoId}) {
                 content: comment
             });
             if(!uploadComment) setError("Faild to upload comment");
+            else toast.success("Successfully comment create");
         } catch (err) {
             setError(err.message);
+            toast.error(err.message);
         } finally {
             setLoading(false);
             setComment("");
@@ -34,7 +38,7 @@ function AddComment({videoId}) {
     <div className='p-5'>
         <div className='text-red-700 py-5'>{error}</div>
         <form className="mb-6" onSubmit={(e) => submitComment(e)}>
-        <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div className="py-2 px-4 mb-4 bg-amber-50 rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <label htmlFor="comment" className="sr-only">Your comment</label>
             <textarea id="comment" rows="6"
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import toast, {Toaster} from "react-hot-toast";
 
@@ -8,10 +8,11 @@ function AuthLayout({ children, authenticationRequired = true }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { status } = useSelector((state) => state.authSlice);
+  const location = useLocation();
 
   useEffect(() => {
     if (authenticationRequired && status !== authenticationRequired) {
-      navigate("/login");
+      navigate("/login", {state: {from: location}});
     }
     setLoading(false);
   }, [authenticationRequired, navigate, status]);
