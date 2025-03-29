@@ -15,7 +15,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function PublishVideo() {
   // const [thumbnail, setThumbnail] = useState({});
@@ -37,33 +38,26 @@ function PublishVideo() {
       formdata.append("thumbnail", data.thumbnail[0]);
       formdata.append("videoFile", data.videoFile[0]);
       formdata.append("isPublished", data.isPublished);
+
       const newVideo = await axios.post(
         "/api/v1/video/publish-video",
         formdata
       );
-      if (!newVideo) {
+
+      if (!newVideo.data.message[0]) {
+        toast.error("Video Uploading failed")
         setError("Video Upload Failed");
       }
-      // TODO: navigate on this uploaded video
-      navigate("/");
-      setLoading(false);
+      toast.success("Your video has been uploaded successfully.");
+      navigate(`/video/${newVideo.data.message[0]._id}`);
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
+    } finally {
       setLoading(false);
     }
   };
 
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   return (
     <Container

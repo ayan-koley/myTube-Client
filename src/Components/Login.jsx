@@ -12,13 +12,14 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice.js";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -38,7 +39,8 @@ const Login = () => {
       if (userData) {
         dispatch(login(userData));
         setLoading(false);
-        navigate("/");
+        console.log(location);
+        navigate(location.state.from.pathname);
       }
     } catch (err) {
       setError(err.message);

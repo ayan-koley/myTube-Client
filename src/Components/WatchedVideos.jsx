@@ -6,6 +6,7 @@ import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import {removeVideo} from '../store/historySlice.js';
+import toast from 'react-hot-toast';
 
 function WatchedVideos() {
     const {watchVideos} = useSelector((state) => state.historySlice);
@@ -20,9 +21,10 @@ function WatchedVideos() {
       try {
         await axios.patch(`/api/v1/user/watch-history/remove/${videoId}`);
         dispatch(removeVideo(videoId));
-        // navigate("/watch-history")
+        toast.success("Video removed from your watch history.")
       } catch (err) {
         setError(err.message);
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }

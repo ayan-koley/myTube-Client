@@ -6,7 +6,8 @@ import { IconButton  } from '@mui/material';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { GiSelfLove } from "react-icons/gi";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function LikeButton({likes, _id}) {
     const [like, setLike] = useState(likes);
@@ -15,6 +16,7 @@ function LikeButton({likes, _id}) {
     const [error, setError] = useState(null);
     const {status} = useSelector(state => state.authSlice);
     const navigate = useNavigate();
+    const location = useLocation();
 
     if(status) {
         
@@ -28,16 +30,17 @@ function LikeButton({likes, _id}) {
     }
 
     const toggleLikes = async() => {
-        if(!status) navigate("/");
+        if(!status) navigate("/login", {state: { from: location }});
         setLoader(true)
         setError(null);
         try {
             const response = await axios.post(`/api/v1//like/toggle/v/${_id}`);
             if(response.data.message.includes('create')) {
-                console.log("work this progress");
+                toast.success("You liked this video.")
                 setLike(prev => prev + 1);
                 setIsLiked(true)
             }   else {
+                toast.success("You removed your like from this video.");
                 setLike(prev => prev - 1);
                 setIsLiked(false);
             }

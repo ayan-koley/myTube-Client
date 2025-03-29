@@ -19,7 +19,7 @@ function OwnerSection({ src, _id, isSubscriber = false, subscribedCount = 0, lik
                     <LikeButton _id={videoId} likes={likesCount} />
                 </div>
                 <div>
-                    <SubscribedButton _id={_id} count={subscribedCount} />
+                    <SubscribedButton username={username} _id={_id} count={subscribedCount} />
                 </div>
             </div>
         </div>

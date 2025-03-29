@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice.js";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [avatar, setAvatar] = useState("");
@@ -47,11 +48,10 @@ const Signup = () => {
           password: data.password,
         });
         if (userData) {
-          console.log(userData);
           dispatch(login(userData));
+          toast.success(`Account created successfully. Welcome ${userData.data.message[0].fullname}!`)
           setLoading(false);
           navigate("/");
-          // TODO: After login redirect the user on prev page
         } else {
           setError("account getingprocess unsuccessful!");
         }

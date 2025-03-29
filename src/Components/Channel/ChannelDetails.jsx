@@ -17,7 +17,7 @@ function ChannelDetails({avatar, fullname, username, subscriberCount, channelSub
                 {isSubscribed ? "Unsubscribe" : "Subscribe"}
             </Button> */}
             <div className='mr-5'>
-                <SubscribedButton _id={channelId} />
+                <SubscribedButton username={username} _id={channelId} />
             </div>
             </div>
     </div>

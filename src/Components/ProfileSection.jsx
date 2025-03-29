@@ -4,16 +4,15 @@ import { Edit, PhotoCamera } from "@mui/icons-material";
 import { RxUpdate } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
+import toast from "react-hot-toast";
 
 export default function ProfileSection() {
   
   const {status, userData } = useSelector((state) => state.authSlice);
-
   const [coverImage, setCoverImage] = useState(userData?.coverImage?.url || "");
   const [avatar, setAvatar] = useState(userData?.avatar?.url);
-
   const [name, setName] = useState(userData?.fullname);
   const [username, setUsername] = useState(userData?.username);
   const [email, setEmail] = useState(userData?.email);
@@ -23,10 +22,10 @@ export default function ProfileSection() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleImageChange = useCallback((event, setImage) => {
     const file = event.target.files[0];
-    console.log(file);
     if (file) {
       setImage(URL.createObjectURL(file));
       changeCoverImage(file);
@@ -49,13 +48,15 @@ export default function ProfileSection() {
   } 
 
   const logoutUser = async() => {
-    if(!status) return navigate("/")
+    if(!status) return navigate("/", {state: {from: location}});
     setLoading(true);
     try {
       await axios.post("/api/v1/user/logout");
+      toast.success("Successfully Logout");
       navigate("/")
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -69,8 +70,10 @@ export default function ProfileSection() {
           fullname: name
         })
         dispatch(login(response.data.data));
+        toast.success("Your name has been updated successfully.");
     } catch (err) {
       setError(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -79,7 +82,7 @@ export default function ProfileSection() {
 
 
   return status ? (
-    <div className="max-w-4xl mx-auto px-4 pb-1 shadow-lg rounded-lg bg-white">
+    <div className="max-w-4xl mx-auto px-4 pb-1 pt-4 shadow-lg rounded-lg bg-white">
       {error && <div className="text-red-300 p-3">{error}</div>}
       {/* Cover Image */}
       <div className="relative h-48 bg-gray-200 rounded-lg overflow-hidden">
@@ -166,7 +169,7 @@ export default function ProfileSection() {
             </IconButton> */}
           </div>
         </div>
-        <div className="my-2 flex justify-center">
+        <div className="py-2 flex justify-center">
           <Button
           variant="contained"
           onClick={logoutUser}
