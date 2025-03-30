@@ -15,6 +15,7 @@ import { login } from "../store/authSlice.js";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [avatar, setAvatar] = useState("");
@@ -32,25 +33,27 @@ const Signup = () => {
 
   const signUp = async (data) => {
     setLoading(true);
+    setError(null);
     try {
-      const formdata = new FormData();
-      formdata.append("username", data.username);
-      formdata.append("fullname", data.fullname);
-      formdata.append("email", data.email);
-      formdata.append("password", data.password);
-      formdata.append("avatar", data.avatar[0]);
-      formdata.append("coverImage", data.coverImage[0]);
-
-      const createAccount = await axios.post("/api/v1/user/register", formdata);
+      const formData = new FormData();
+      formData.append("username", data.username);
+      formData.append("fullname", data.fullname);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("avatar", data.avatar[0]);  // Ensure file is properly appended
+      formData.append("coverImage", data.coverImage[0]);
+      const createAccount = await axios.post("/api/v1/user/register", 
+        formData
+      );
       if (createAccount) {
-        const userData = await axios.post("/api/v1/user/login", {
+        const loginSession = await axios.post("/api/v1/user/login", {
           email: data.email,
           password: data.password,
         });
+        const userData = loginSession.data.message.user;
         if (userData) {
           dispatch(login(userData));
-          toast.success(`Account created successfully. Welcome ${userData.data.message[0].fullname}!`)
-          setLoading(false);
+          toast.success(`Account created successfully. Welcome ${userData.fullname}!`)
           navigate("/");
         } else {
           setError("account getingprocess unsuccessful!");
@@ -60,20 +63,11 @@ const Signup = () => {
       }
     } catch (err) {
       setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   return (
     <Container
@@ -93,6 +87,9 @@ const Signup = () => {
         <Typography variant="h5" gutterBottom>
           Sign Up
         </Typography>
+        <Typography variant="h7" gutterBottom>
+          Already have an account <Link to={"/login"} className="underline !text-blue-500 px-1" >Login</Link>
+        </Typography>
         <form onSubmit={handleSubmit(signUp)}>
           {<p className="!text-black text-xl">{error}</p>}
           <TextField
@@ -100,18 +97,14 @@ const Signup = () => {
             label="Username"
             margin="normal"
             size="small"
-            {...register("username", { required: "Name is required" })}
-            // error={!!errors.name}
-            // helperText={errors.name?.message}
+            {...register("username", { required: "username is required" })}
           />
           <TextField
             fullWidth
             label="Full Name"
             margin="normal"
             size="small"
-            {...register("fullname", { required: "Name is required" })}
-            // error={!!errors.name}
-            // helperText={errors.name?.message}
+            {...register("fullname", { required: "Fullname is required" })}
           />
           <TextField
             fullWidth
@@ -120,8 +113,6 @@ const Signup = () => {
             margin="normal"
             size="small"
             {...register("email", { required: "Email is required" })}
-            // error={!!errors.email}
-            // helperText={errors.email?.message}
           />
           <TextField
             fullWidth
@@ -136,46 +127,39 @@ const Signup = () => {
                 message: "Password must be at least 2 characters",
               },
             })}
-            // error={!!errors.password}
-            // helperText={errors.password?.message}
           />
-          <Button
-            component="label"
-            role={undefined}
-            variant="outlined"
-            tabIndex={-1}
-            startIcon={<CloudUploadIcon />}
+<label
+            className="block mb-2 text-[17px] font-medium text-gray-900 "
+            htmlFor="avatar_input"
           >
             Upload Avatar
-            <VisuallyHiddenInput
-              type="file"
-              onChange={(event) => setAvatar(event)}
-              {...register("avatar", { required: "avatar is required" })}
-              single
-            />
-          </Button>
-          {/* {avatar.trim() != '' && <p className="!text-black">{avatar}</p>} */}
-          <Button
-            component="label"
-            role={undefined}
-            variant="outlined"
-            tabIndex={-1}
-            className="!mt-2"
-            startIcon={<CloudUploadIcon />}
+          </label>
+          <input
+            className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-800 focus:outline-none dark:border-gray-600 dark:placeholder-gray-400
+          p-2 font-medium"
+            id="avatar_input"
+            type="file"
+            accept="image/*"
+            {...register("avatar", {
+              required: "Avatar is required"
+            })}
+          />
+          <label
+            className="block mb-2 text-[17px] font-medium text-gray-900 "
+            htmlFor="coverimage_input"
           >
             Upload CoverImage
-            <VisuallyHiddenInput
-              type="file"
-              onChange={(event) => setCoverImage(event.target.files[0].name)}
-              {...register("coverImage", {
-                required: "CoverImage is required",
-              })}
-              single
-            />
-          </Button>
-          {coverImage.trim() != "" && (
-            <p className="!text-black">{coverImage}</p>
-          )}
+          </label>
+          <input
+            className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-800 focus:outline-none dark:border-gray-600 dark:placeholder-gray-400
+          p-2 font-medium"
+            id="coverimage_input"
+            type="file"
+            accept="image/*"
+            {...register("coverImage", {
+              required: "CoverImage is required"
+            })}
+          />
 
           <Button
             type="submit"
