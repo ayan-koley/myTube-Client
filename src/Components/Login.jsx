@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice.js";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -48,17 +49,6 @@ const Login = () => {
     }
   };
 
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
 
   return (
     <Container
@@ -77,6 +67,9 @@ const Login = () => {
       >
         <Typography variant="h5" gutterBottom>
           Login
+        </Typography>
+        <Typography variant="h7" gutterBottom>
+          Create a new account <Link to={"/sign-up"} className="underline !text-blue-500 px-1" >Sign Up</Link>
         </Typography>
         <form onSubmit={handleSubmit(signIn)}>
           {<p className="!text-red-500 text-xl font-bold ">{error}</p>}
