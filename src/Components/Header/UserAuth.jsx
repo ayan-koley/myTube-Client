@@ -44,7 +44,7 @@ const handleClick = () => {
 
   return (
     // <Link to={authRedirect} className="hidden sm:block cursor-pointer mr-1" onClick={() => setIsList(!isList)}>
-      <div onClick={handleClick} className="hover:cursor-pointer">
+      <div onClick={handleClick} className="hidden sm:block cursor-pointer mr-1">
         <Avatar alt="Remy Sharp" src={userData?.avatar?.url}>
         {status ? (
           <img src={userData?.avatar?.url} />
