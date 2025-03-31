@@ -32,7 +32,6 @@ export default function ProfileSection() {
   }, []);
 
   const changeCoverImage = async(file) => {
-    console.log(file);
     const formdata = new FormData();
     formdata.append('coverImage', file);
     try {

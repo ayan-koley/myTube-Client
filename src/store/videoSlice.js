@@ -5,7 +5,6 @@ export const fetchedVideos = createAsyncThunk(
   "/videos/fetchedVideo",
   async (query, { getState }) => {
     const state = getState();
-    console.log(state);
     if (state?.searchedVideos?.[query]) {
       return state.searchedVideos[query];
     }

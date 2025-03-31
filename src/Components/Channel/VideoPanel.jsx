@@ -15,7 +15,6 @@ function VideoPanel({channelId, value, index}) {
             setError(null);
             try {
                 const response = await axios.get(`/api/v1/user/channel-videos/${channelId}`);
-                console.log(response.data.data)
 
                 if(!response) {
                     setError("Failed to fetched data");

@@ -16,7 +16,6 @@ function DashBoardPage() {
     setLoading(true);
     try {
       const response = await axios.get("/api/v1/dashboard/status");
-      console.log(response)
       if(response) {
         setVideosCount(response.data?.message[0].totalVideos);
         setViewsCount(response.data?.message[0].totalViews);

@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const fetchedComment = createAsyncThunk("/comment/fetchedComment",async(id) => {
     const response = await axios.get(`/api/v1/comment/${id}`);
-    console.log(response);
     return {comments: response.data.message[0].data};
 })
 
@@ -18,7 +17,6 @@ const commentSlice = createSlice({
     initialState,
     reducers: {
         addComment: (state, action) => {
-            console.log(action.payload)
             state.comment.push(action.payload.message);
         }
     },

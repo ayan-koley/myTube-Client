@@ -18,7 +18,6 @@ const historySlice = createSlice({
     reducers: {
         addVideo: (state, action) => {
             state.loading = true;
-            console.log(action.payload);
             state.watchVideos = action.payload.video;
             state.loading = false;
         },
@@ -33,7 +32,6 @@ const historySlice = createSlice({
             })
             .addCase(fetchedHistory.fulfilled, (state, action) => {
                 state.loading = false,
-                console.log(action.payload);
                 state.watchVideos = [];
                 state.watchVideos = action.payload.videos;
             })

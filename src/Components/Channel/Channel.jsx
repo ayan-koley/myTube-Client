@@ -20,7 +20,6 @@ function ChannelProfile() {
             setError(null);
             try {
                 const response = await axios.get(`/api/v1/user/profile/${username}`);
-                console.log(response.data.message);
                 if(!response) {
                     setError("usernot found");
                 }setUserDetails(response.data.message);

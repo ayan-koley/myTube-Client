@@ -41,7 +41,6 @@ const Login = () => {
         dispatch(login(userData));
         setLoading(false);
         const redirectPath = location.state?.from?.pathname || "/";
-        console.log(redirectPath);
         navigate(redirectPath);
       }
     } catch (err) {

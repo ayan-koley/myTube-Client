@@ -147,7 +147,6 @@ function PublishVideo() {
               required: "Video file is required",
               validate: (FileList) => {
                 const file = FileList[0];
-                console.log(file);
                 if (!file) return "video file is requried";
                 if (!file.type.startsWith("video/")) return "Invalid file type";
                 if(file.size > 60 * 1024 * 1024) return "file size must be under 60mb";
