@@ -36,8 +36,9 @@ function VideoplayerPage() {
         setVideo(videoData.data.message[0]);
       } catch (err) {
         setError(err.message);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
 
     const updateHistory = async() => {
@@ -65,7 +66,7 @@ function VideoplayerPage() {
           <video src={video.videoFile.url} controls  className='!w-full md:w-1/2' />
         </div>
         <div className='px-4 md:px-0'>
-          <OwnerSection src={video.owner.avatar.url} _id={video.owner._id} username={video.owner.username} likesCount={video.likes} />
+          <OwnerSection src={video.owner.avatar.url} _id={video.owner._id} username={video.owner.username} likesCount={video.likes} videoId={video._id}/>
         </div>
         <div className='px-4 md:px-0'>
           <About title={video.title} description={video.description} />
@@ -75,7 +76,6 @@ function VideoplayerPage() {
         </div>
       </div>
       <div>
-        {/* <ChannelAllVideos channelId={video.owner._id} /> */}
         <RecommendVideo videoId={videoId} />
       </div>
     </div>

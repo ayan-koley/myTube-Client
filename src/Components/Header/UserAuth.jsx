@@ -8,34 +8,11 @@ import { logOut } from "../../store/authSlice";
 import { useDispatch } from "react-redux";
 
 function UserAuth() {
-  const [authRedirect, setAuthRedirect] = useState("");
-  const [isList, setIsList] = useState(false);
   const [error, setError] = useState(null);
   const { status, userData } = useSelector((state) => state.authSlice);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  // const logoutHandler = async () => {
-  //   setError(null);
-  //   try {
-  //     const logoutSession = await axios.post("/api/v1/user/logout");
-  //     console.log(logoutSession);
-  //     if (logoutSession) {
-  //       dispatch(logOut());
-  //       navigate("/");
-  //     }
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  // };
-
-
-
-  // useEffect(() => {
-  //   if(status) navigate("/profile");
-  //   else navigate("/login")
-  // }, [status, authRedirect])
   
 const handleClick = () => {
   if(status) navigate("/profile");
@@ -43,7 +20,6 @@ const handleClick = () => {
 }
 
   return (
-    // <Link to={authRedirect} className="hidden sm:block cursor-pointer mr-1" onClick={() => setIsList(!isList)}>
       <div onClick={handleClick} className="hidden sm:block cursor-pointer mr-1">
         <Avatar alt="Remy Sharp" src={userData?.avatar?.url}>
         {status ? (
@@ -53,7 +29,6 @@ const handleClick = () => {
         )}
       </Avatar>
       </div>
-    // </Link>
   );
 }
 

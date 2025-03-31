@@ -9,7 +9,7 @@ import { GiSelfLove } from "react-icons/gi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-function LikeButton({likes, _id}) {
+function LikeButton({likes, videoId}) {
     const [like, setLike] = useState(likes);
     const [isLiked, setIsLiked] = useState(false);
     const [loader, setLoader] = useState(false);
@@ -18,23 +18,20 @@ function LikeButton({likes, _id}) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    if(status) {
-        
-        useEffect(() => {
-            const fetchedLikeStatus = async() => {
-                const likeStatus = await axios.get(`/api/v1/like/status/${_id}`);
-                setIsLiked(likeStatus.data.data.isLiked);
-            }
-            fetchedLikeStatus();
-        }, [_id])
-    }
+    useEffect(() => {
+        const fetchedLikeStatus = async() => {
+            const likeStatus = await axios.get(`/api/v1/like/status/${videoId}`);
+            setIsLiked(likeStatus.data.data.isLiked);
+        }
+        if(status) fetchedLikeStatus();
+    }, [videoId, status, isLiked])
 
     const toggleLikes = async() => {
         if(!status) navigate("/login", {state: { from: location }});
         setLoader(true)
         setError(null);
         try {
-            const response = await axios.post(`/api/v1//like/toggle/v/${_id}`);
+            const response = await axios.post(`/api/v1/like/toggle/v/${videoId}`);
             if(response.data.message.includes('create')) {
                 toast.success("You liked this video.")
                 setLike(prev => prev + 1);

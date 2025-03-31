@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom'
 import LikeButton from './LikeButton';
 import SubscribedButton from './SubscribedButton';
 
-function OwnerSection({ src, _id, isSubscriber = false, subscribedCount = 0, likesCount=0, viewsCount=0, username}) {
-    const {videoId} = useParams();
-    
+function OwnerSection({ src, _id, isSubscriber = false, subscribedCount = 0, likesCount=0, viewsCount=0, username, videoId}) {
+
   return (
     <div className='md:w-1/2 md:mx-3 !w-full bg-black p-3 rounded-xl md:px-3' style={{boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)'}}>
         <div className='flex justify-between items-center'>
@@ -16,7 +15,7 @@ function OwnerSection({ src, _id, isSubscriber = false, subscribedCount = 0, lik
             </div>
             <div className='flex items-center justify-evenly'>
                 <div>
-                    <LikeButton _id={videoId} likes={likesCount} />
+                    <LikeButton videoId={videoId} likes={likesCount} />
                 </div>
                 <div>
                     <SubscribedButton username={username} _id={_id} count={subscribedCount} />

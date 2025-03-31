@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {VideoCard} from './index'
-import { Link, useNavigate } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { CircularProgress, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import {removeVideo} from '../store/historySlice.js';
@@ -12,7 +12,6 @@ function WatchedVideos() {
     const {watchVideos} = useSelector((state) => state.historySlice);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const removeFromHistory = async(videoId) => {
@@ -32,6 +31,9 @@ function WatchedVideos() {
   return watchVideos.length > 0 ? (
     <div>
         <div className='underline text-white text-center text-3xl px-4 py-4'>HISTORY</div>
+        {loading && <div>
+            <CircularProgress />
+          </div>}
        <div className="grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 mt-8">
        {watchVideos.map((item) => (
             <div key={item._id} className="px-5 py-5">
