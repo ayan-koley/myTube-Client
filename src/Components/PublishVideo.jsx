@@ -30,7 +30,7 @@ function PublishVideo() {
   const publishNewVideo = async (data) => {
     setLoading(true);
     try {
-
+      console.log(data);
       const formdata = new FormData();
       formdata.append("title", data.title);
       formdata.append("description", data.description);
@@ -44,12 +44,12 @@ function PublishVideo() {
         formdata
       );
 
-      if (!newVideo.data.message[0]) {
+      if (!newVideo.data.data) {
         toast.error("Video Uploading failed")
         setError("Video Upload Failed");
       }
       toast.success("Your video has been uploaded successfully.");
-      navigate(`/video/${newVideo.data.message[0]._id}`);
+      navigate(`/video/${newVideo.data.data._id}`);
     } catch (err) {
       setError(err.message);
       toast.error(err.message);
@@ -93,24 +93,27 @@ function PublishVideo() {
             label="Video Description"
             margin="normal"
             size="small"
-            {...register("description", { required: "Name is required" })}
+            {...register("description", { required: "description is required" })}
             // error={!!errors.name}
             // helperText={errors.name?.message}
           />
           <FormLabel id="demo-radio-buttons-group-label">Visibility</FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="true"
+            defaultValue={true}
             name="radio-buttons-group"
-            {...register("isPublished")}
+            onChange={(e) => console.log(e)}
+            {...register("isPublished", {
+              required: true
+            })}
           >
             <FormControlLabel
-              value="true"
+              value={true}
               control={<Radio />}
               label="Publish"
             />
             <FormControlLabel
-              value="false"
+              value={false}
               control={<Radio />}
               label="Private"
             />

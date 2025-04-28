@@ -1,9 +1,9 @@
 import React from 'react'
-import {Login} from '../Components'
+import { Login } from '../Components'
 
 function LoginPage() {
   return (
-    <div>
+    <div className='h-screen'>
         <Login />
     </div>
   )

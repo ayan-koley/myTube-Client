@@ -14,12 +14,16 @@ import VideoDescription from './VideoSection/VideoDescription.jsx';
 import LikeButton from './LikeButton.jsx';
 import SubscribedButton from './SubscribedButton.jsx';
 import VideoInfo from './VideoSection/VideoInfo.jsx';
-import OwnerSection from './OwnerSection.jsx';
 import UserAvatar from './UserAvatar.jsx';
 import CommentSection from './Comments/CommentSection.jsx';
 import RecommendVideo from './VideoSection/RecommendVideo.jsx';
 import SearchedVideo from './SearchedVideo/SearchedVideo.jsx';
 import Channel from './Channel/Channel.jsx';
+import ProfileSection from './ProfileSection.jsx';
+import ChannelHeader from './ChannelHeader/ChannelHeader.jsx';
+import About from './About.jsx';
+import PlaylistVideos from './PlaylistVideos/PlaylistVideos.jsx';
+import PaginationComponent from './PaginationComponent.jsx';
 
 
 export {
@@ -39,10 +43,14 @@ export {
     LikeButton,
     SubscribedButton,
     VideoInfo,
-    OwnerSection,
     UserAvatar,
     CommentSection,
     RecommendVideo,
     SearchedVideo,
-    Channel
+    Channel,
+    ProfileSection,
+    ChannelHeader,
+    About,
+    PlaylistVideos,
+    PaginationComponent
 }

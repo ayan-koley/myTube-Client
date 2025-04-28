@@ -88,7 +88,7 @@ const Signup = () => {
           Sign Up
         </Typography>
         <Typography variant="h7" gutterBottom>
-          Already have an account <Link to={"/login"} className="underline !text-blue-500 px-1" >Login</Link>
+          Already have an account <Link to={`/login`} className="underline !text-blue-500 px-1" >Login</Link>
         </Typography>
         <form onSubmit={handleSubmit(signUp)}>
           {<p className="!text-black text-xl">{error}</p>}

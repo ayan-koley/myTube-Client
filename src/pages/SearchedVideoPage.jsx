@@ -3,7 +3,7 @@ import { SearchedVideo } from '../Components'
 
 function SearchedVideoPage() {
   return (
-    <div className="bg-primary">
+    <div>
         <SearchedVideo />
     </div>
   )

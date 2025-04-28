@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import toast, {Toaster} from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 
 function AuthLayout({ children, authenticationRequired = true }) {
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ function AuthLayout({ children, authenticationRequired = true }) {
   }, [authenticationRequired, navigate, status]);
 
   return loading ? (
-    <div className="flex h-screen w-full justify-center items-center">
+    <div className="flex w-full justify-center items-center">
       <CircularProgress size="5rem" />
     </div>
   ) : (

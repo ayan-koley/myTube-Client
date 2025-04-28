@@ -3,7 +3,7 @@ import axios from "axios";
 export const fetchedHistory = createAsyncThunk("/user/watch-history",
     async() => {
         const response = await axios.get("/api/v1/user/watch-history");
-        return {videos: response.data?.message};
+        return {videos: response.data?.data};
     }
 )
 const initialState = {

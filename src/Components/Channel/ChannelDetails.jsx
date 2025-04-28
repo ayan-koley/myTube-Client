@@ -1,9 +1,7 @@
 import React from 'react'
-import UserAvatar from '../UserAvatar';
-import { Button } from '@mui/material';
-import SubscribedButton from '../SubscribedButton';
+import { SubscribedButton, UserAvatar } from '../index'
 
-function ChannelDetails({avatar, fullname, username, subscriberCount, channelSubscribedCount, isSubscribed, channelId}) {
+function ChannelDetails({avatar, fullname, username, subscriberCount, channelSubscribedCount, channelId}) {
   return (
     <div>
         <div className="flex items-center  gap-4 justify-center">
@@ -13,9 +11,6 @@ function ChannelDetails({avatar, fullname, username, subscriberCount, channelSub
                 <p className="text-gray-400">@{username}</p>
                 <p className="text-gray-400 text-sm">{subscriberCount} subscribers • {channelSubscribedCount} subscribed channel</p>
             </div>
-            {/* <Button variant="contained" className={`${isSubscribed ? 'bg-green-400' : 'bg-red-600'}`}>
-                {isSubscribed ? "Unsubscribe" : "Subscribe"}
-            </Button> */}
             <div className='mr-5'>
                 <SubscribedButton username={username} _id={channelId} />
             </div>

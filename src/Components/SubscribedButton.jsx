@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-function SubscribedButton({username, _id, count=0 }) {
+function SubscribedButton({username, _id, subscribers }) {
   const {status} = useSelector(state => state.authSlice);
   const navigate = useNavigate();
 
-  const [subscriberCount, setSubsCriberCount] = useState(count);
+  const [subscriberCount, setSubsCriberCount] = useState(subscribers);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -50,20 +50,18 @@ function SubscribedButton({username, _id, count=0 }) {
   }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center z-auto">
       {error && <p className="bg-red-500">{error}</p>}
-      {/* <div className="text-white mx-2">
-        {subscriberCount}
-      </div> */}
       <Button
         loading={loading}
         disabled={loading}
         variant="contained"
         color={`${isSubscribed ? "success" : "error"}`}
         onClick={toggleSubscribers}
-        sx={{width: '126px'}}
+        sx={{width: '126px', zIndex: 'inherit'}}
       >
         {isSubscribed ? "Unsubscribe" : "Subscribe"}
+        {subscribers && <p>{subscriberCount}</p>}
       </Button>
     </div>
   );

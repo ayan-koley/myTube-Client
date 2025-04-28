@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { VideoCard } from "../Components";
+import { PaginationComponent, VideoCard } from "../Components";
 import { Skeleton } from "@mui/material";
 import { Link } from "react-router-dom";
 import { fetchedVideos } from "../store/videoSlice";
 import useFetchData from '../hooks/useFetchVideo.js' 
+import axios from "axios";
+import { addVideo } from "../store/videoSlice";
 
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
   const skeletonCount = [1, 2, 3, 4, 5, 6, 7, 8];
-  const {data: video, loading, error} = useFetchData(fetchedVideos, '..');
-
+  const {video, loading, error} = useFetchData(fetchedVideos, '..');
+  const dispatch = useDispatch();
+  const [pageCnt, setPageCnt] = useState(2);
   
- 
-
   useEffect(() => {
+    console.log(video);
     if (video) {
       setVideos(video);
     }
-  }, [video, searchedVideos, query]);
+  }, [searchedVideos, query]);
+
 
   return loading ? (
     <div className="px-5 py-5 flex flex-wrap justify-around">
@@ -45,10 +48,10 @@ function Home() {
       ))}
     </div>
   ) : (
-    <div className=" bg-primary  grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 py-8">
+    <div>
+      <div className="grid lg-2:grid-cols-4 md:grid-cols-3 md-2:grid-cols-2 mx-auto gap-10 py-8 px-5">
       {videos.map((item) => (
-        <div key={item._id} className="flex justify-center mt-5">
-          <Link to={`/video/${item._id}`}>
+          <Link to={`/video/${item._id}`} key={item._id} className="flex justify-center mt-5 hover:scale-105 transition-all duration-700">
             <VideoCard
               avatar={item.owner.avatar.url}
               thumbnail={item.thumbnail.url}
@@ -58,8 +61,11 @@ function Home() {
               views={item.views}
             />
           </Link>
-        </div>
       ))}
+    </div>
+    <div className="bg-white flex justify-center py-5">
+      <PaginationComponent />
+    </div>
     </div>
   );
 }

@@ -1,13 +1,17 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Jaldi:wght@400;700&display=swap');
 *{
-    /* margin: 0; */
     font-weight: 400;
     font-style: normal;
+    /* background-color: white; */
 }
 p, h1, h2, h3 {
     color: white;
 }
+body {
+    background-color: black;
+}
+
 
 @theme{
     --breakpoint-sm-2: 31.25rem;
@@ -17,6 +21,6 @@ p, h1, h2, h3 {
     --font-primary: Jaldi, sans-serif;
     --color-about: #141414;
 }
-.bg-primary {
+/* .bg-primary {
     background: linear-gradient(#030307, #1d1a3a);
-}
+} */

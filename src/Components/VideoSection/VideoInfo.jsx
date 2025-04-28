@@ -1,6 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
-import LikeButton from '../LikeButton.jsx';
+import { LikeButton } from '../index';
 
 function VideoInfo({video_id, views = 0, likes=0}) {
   return (

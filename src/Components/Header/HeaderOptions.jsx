@@ -26,7 +26,7 @@ function HeaderOptions() {
   return (
     <div className='hidden lg-2:flex justify-between md:w-1/4'>
         {options.map((item, index) => (
-            <Link to={item.to} key={index} className='flex items-center text-gray-500 hover:text-white'>
+            <Link to={`${item.to}`} key={index} className='flex items-center text-gray-500 hover:text-white'>
                 <div className='mr-3'>{item.icon}</div>
                 <p>{item.name}</p>
             </Link>

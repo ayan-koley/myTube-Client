@@ -17,4 +17,16 @@ const truncatTitle = (title) => {
     return title.length > 20 ? title.substring(0, 17) + "..." : title;
 }
 
-export {formatViews, formatTime, truncatTitle}
+const addWidthOnImage = (originalUrl="", width=140) => {
+    const cloudinaryUrlFormat = "http://res.cloudinary.com/dlcxr1p9c/image/upload/";
+    const transformation = `c_scale,w_${width}/`;
+    if(originalUrl.includes(cloudinaryUrlFormat)) {
+        const parts = originalUrl.split(cloudinaryUrlFormat);
+        return cloudinaryUrlFormat + transformation + parts[1];
+    }   else {
+        console.log("Invalid Url");
+        return;
+    }
+}
+
+export {formatViews, formatTime, truncatTitle, addWidthOnImage}

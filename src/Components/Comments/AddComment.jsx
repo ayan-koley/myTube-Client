@@ -35,7 +35,7 @@ function AddComment({videoId}) {
     }
 
   return (
-    <div className='p-5'>
+    <div className='p-2'>
         <div className='text-red-700 py-5'>{error}</div>
         <form className="mb-6" onSubmit={(e) => submitComment(e)}>
         <div className="py-2 px-4 mb-4 bg-amber-50 rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -55,7 +55,7 @@ function AddComment({videoId}) {
             variant='contained'
             disabled = {loading}
             type="submit"
-            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center !text-gray-400 !bg-gray-800 hover:bg-gray-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+            className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center !text-gray-400 !bg-gray-800 hover:bg-gray-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900">
             Post comment
         </Button>
     </form>

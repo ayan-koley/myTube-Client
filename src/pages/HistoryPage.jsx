@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchedHistory } from '../store/historySlice';
-import WatchedVideos from '../Components/WatchedVideos';
+import { WatchedVideos } from '../Components';
 
 function HistoryPage() {
     const dispatch = useDispatch();
@@ -9,7 +9,7 @@ function HistoryPage() {
             dispatch(fetchedHistory());
         }, [])
   return (
-    <div className='bg-primary'>
+    <div>
         <WatchedVideos />
     </div>
   )

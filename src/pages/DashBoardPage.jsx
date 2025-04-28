@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Dashboard} from '../Components'
+import { Dashboard } from '../Components'
 import { VideoLibrary, Visibility, People, Favorite } from "@mui/icons-material";
 import axios from 'axios';
 
@@ -16,11 +16,11 @@ function DashBoardPage() {
     setLoading(true);
     try {
       const response = await axios.get("/api/v1/dashboard/status");
-      if(response) {
-        setVideosCount(response.data?.message[0].totalVideos);
-        setViewsCount(response.data?.message[0].totalViews);
-        setLikesCount(response.data?.message[0].totalLikes);
-        setSubscribersCount(response.data?.message[0].totalSubscriber);
+      if(response.data.data[0]) {
+        setVideosCount(response.data?.data[0].totalVideos);
+        setViewsCount(response.data?.data[0].totalViews);
+        setLikesCount(response.data?.data[0].totalLikes);
+        setSubscribersCount(response.data?.data[0].totalSubscriber);
       } else {
         setError("Internal Server Error ::: ");
       }
@@ -37,7 +37,7 @@ function DashBoardPage() {
     <div className='text-4xl text-red-500 flex justify-center mt-10 underline'>{error}</div>
   ) : (
     
-    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
         <Dashboard value={videosCount} icon={<VideoLibrary fontSize="large" />} title={'Total Videos'} color={'bg-blue-500'} />
         <Dashboard value={viewsCount} icon={<Visibility fontSize="large" />} title={'Total Views'} color={'bg-blue-500'} />
         <Dashboard value={subscribersCount} icon={<People fontSize="large" />} title={'Total Subscriber'} color={'bg-blue-500'} />

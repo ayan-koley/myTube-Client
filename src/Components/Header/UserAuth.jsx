@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "@mui/material";
 import { CiUser } from "react-icons/ci";
 import { useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { logOut } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UserAuth() {
   const [error, setError] = useState(null);

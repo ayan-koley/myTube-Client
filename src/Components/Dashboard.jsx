@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
+
 const Dashboard = ({ title, value, icon, color }) => {
   return (
     <Card className="shadow-lg rounded-2xl">

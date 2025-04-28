@@ -7,13 +7,11 @@ import { fetchedVideos } from './store/videoSlice';
 function App() {
 
   return (
-    // <div className='bg-linear-to-t from-[#030307] to-[#1d1a3a]'>
-    <div>
+    <div className='bg-primary'>
     <Header />
       <main>
         <Outlet />
       </main>
-    {/* <Footer /> */}
     </div>
   )
 }

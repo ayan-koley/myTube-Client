@@ -36,7 +36,7 @@ const Login = () => {
       formdata.append("password", data.password);
 
       const loginSession = await axios.post("/api/v1/user/login", data);
-      const userData = loginSession.data?.message?.user;
+      const userData = loginSession.data?.data?.user;
       if (userData) {
         dispatch(login(userData));
         setLoading(false);
@@ -68,7 +68,7 @@ const Login = () => {
           Login
         </Typography>
         <Typography variant="h7" gutterBottom>
-          Create a new account <Link to={"/sign-up"} className="underline !text-blue-500 px-1" >Sign Up</Link>
+          Create a new account <Link to={`/sign-up`} className="underline !text-blue-500 px-1" >Sign Up</Link>
         </Typography>
         <form onSubmit={handleSubmit(signIn)}>
           {<p className="!text-red-500 text-xl font-bold ">{error}</p>}

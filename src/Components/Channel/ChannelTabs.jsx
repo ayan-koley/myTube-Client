@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab } from '@mui/material'
-import VideoPanel from './VideoPanel'
+import { PlaylistPanel, VideoPanel } from './index'
 
-function ChannelTabs({channelId}) {
+function ChannelTabs({ channelId }) {
     const [tab, setTab] = useState(0);
     const tabOptions = [
         {
@@ -10,7 +10,7 @@ function ChannelTabs({channelId}) {
             disable: false
         },{
             name: "PLAYLISTS",
-            disable: true
+            disable: false
         },{
             name: "Tweets",
             disable: true
@@ -32,6 +32,8 @@ function ChannelTabs({channelId}) {
             }
         </Tabs>
         <VideoPanel channelId={channelId} value={tab} index={0} />
+        {tab}
+        <PlaylistPanel value={tab} index={1} channelId={channelId} />
     </div>
   )
 }

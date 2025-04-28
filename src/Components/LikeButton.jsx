@@ -55,7 +55,7 @@ function LikeButton({likes, videoId}) {
         <IconButton onClick={toggleLikes} >
             <GiSelfLove className={`${isLiked ? 'text-red-400' : 'text-white'}`} />
         </IconButton>
-        <p className='!text-white'>{like}</p>
+        {like && <p className='!text-white'>{like}</p>}
         {error && <p className='text-red-400'>{error}</p>}
     </div>
   )

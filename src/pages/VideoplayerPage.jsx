@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import {VideoPlayer, VideoInfo, VideoTitle, VideoDescription, OwnerSection, CommentSection, RecommendVideo} from '../Components'
+import { ChannelHeader, CommentSection, RecommendVideo, About} from '../Components'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import About from '../Components/About';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 
@@ -33,7 +32,7 @@ function VideoplayerPage() {
       setLoading(true);
       try {
         const videoData = await axios.get(`/api/v1/video/getvideo/${videoId}`)
-        setVideo(videoData.data.message[0]);
+        setVideo(videoData.data.data[0]);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -60,13 +59,13 @@ function VideoplayerPage() {
 
 
   return Object.keys(video).length !== 0 ? (
-    <div className='w-full flex flex-col md:flex-row justify-between bg-primary'>
+    <div className='w-full flex flex-col md:flex-row justify-between'>
       <div className='w-full md:w-1/2 md:mx-4 mt-5'>
         <div className='p-1'>
           <video src={video.videoFile.url} controls  className='!w-full md:w-1/2' />
         </div>
         <div className='px-4 md:px-0'>
-          <OwnerSection src={video.owner.avatar.url} _id={video.owner._id} username={video.owner.username} likesCount={video.likes} videoId={video._id}/>
+          <ChannelHeader src={video.owner.avatar.url} _id={video.owner._id} username={video.owner.username} likesCount={video.likes} videoId={video._id}/>
         </div>
         <div className='px-4 md:px-0'>
           <About title={video.title} description={video.description} />
