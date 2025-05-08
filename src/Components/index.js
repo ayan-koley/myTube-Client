@@ -23,7 +23,7 @@ import ProfileSection from './ProfileSection.jsx';
 import ChannelHeader from './ChannelHeader/ChannelHeader.jsx';
 import About from './About.jsx';
 import PlaylistVideos from './PlaylistVideos/PlaylistVideos.jsx';
-import PaginationComponent from './PaginationComponent.jsx';
+import PaginationComponent from './Pagination/PaginationComponent.jsx';
 
 
 export {

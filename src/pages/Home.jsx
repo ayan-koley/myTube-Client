@@ -5,16 +5,12 @@ import { Skeleton } from "@mui/material";
 import { Link } from "react-router-dom";
 import { fetchedVideos } from "../store/videoSlice";
 import useFetchData from '../hooks/useFetchVideo.js' 
-import axios from "axios";
-import { addVideo } from "../store/videoSlice";
 
 function Home() {
   const [videos, setVideos] = useState([]);
   const { searchedVideos, query } = useSelector((state) => state.videoSlice);
   const skeletonCount = [1, 2, 3, 4, 5, 6, 7, 8];
   const {video, loading, error} = useFetchData(fetchedVideos, '..');
-  const dispatch = useDispatch();
-  const [pageCnt, setPageCnt] = useState(2);
   
   useEffect(() => {
     console.log(video);
@@ -63,8 +59,8 @@ function Home() {
           </Link>
       ))}
     </div>
-    <div className="bg-white flex justify-center py-5">
-      <PaginationComponent />
+    <div className=" flex justify-center py-5">
+      <PaginationComponent className={"text-white"} />
     </div>
     </div>
   );

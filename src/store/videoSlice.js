@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchedVideos = createAsyncThunk(
   "/videos/fetchedVideo",
-  async ({query, page=1}, { getState }) => {
+  async ({query, page = 1}, { getState }) => {
     const state = getState();
     if (state?.searchedVideos?.[query]) {
       return state.searchedVideos[query];

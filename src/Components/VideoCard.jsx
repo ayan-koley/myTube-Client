@@ -25,7 +25,7 @@ function VideoCard({
   const formattedTime = formatTime(createdAt);
   const truncatedTitle = truncatTitle(title);
   
-  console.log(thumbnail);
+  
   return (
     <Card
       sx={{
